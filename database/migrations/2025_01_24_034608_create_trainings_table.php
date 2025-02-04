@@ -14,13 +14,15 @@ return new class extends Migration
     
     Schema::create('trainings', function (Blueprint $table) {
         $table->id();
-        $table->time('time')->after('date');  // Menambahkan kolom 'time' setelah kolom 'date'
+        $table->date('date');
+        $table->time('time');  
         $table->integer('participant');
         $table->string('instructor');
         $table->integer('duration');
         $table->text('notes')->nullable();
         $table->timestamps();
     });
+    
 }
 
     /**

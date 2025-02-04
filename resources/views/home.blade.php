@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sambuilding - Tailwind Template</title>
-        <link rel="stylesheet" href="assets/css/tailwind.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -24,7 +24,7 @@
 
             <nav class="flex-wrap lg:flex items-center py-14 xl:relative z-10" x-data="{navbarOpen:false}">
     <div class="flex items-center justify-between mb-10 lg:mb-0">
-        <img src="assets/image/navbar-logo.png" alt="Logo img" class="w-52 md:w-80 lg:w-full">
+        <img src="{{ asset('assets/image/navbar-logo.png') }}" alt="Logo img" class="w-52 md:w-80 lg:w-full">
 
         <button class="lg:hidden w-10 h-10 ml-auto flex items-center justify-center text-green-700 border border-green-700 rounded-md" @click="navbarOpen = !navbarOpen">
             <i data-feather="menu"></i>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="hidden xl:block xl:absolute z-0 top-0 right-0">
-                        <img src="assets/image/home-img.png" alt="Home img">
+                        <img src="{{ asset('assets/image/home-img.png') }}" alt="Home img">
                     </div>
 
                 </div>
@@ -75,7 +75,7 @@
             </div> <!-- container.// -->
 
         </section>
-        <!-- home section //nd -->
+        <!-- home section //end -->
     
         <!-- feature section -->
         <section class="bg-white py-10 md:py-16 xl:relative">
@@ -85,7 +85,7 @@
             <div class="flex flex-col xl:flex-row justify-end">
 
                     <div class="hidden xl:block xl:absolute left-0 bottom-0 w-full">
-                        <img src="assets/image/feature-img.png" alt="Feature img">
+                        <img src="{{ asset('assets/image/feature-img.png') }}" alt="Feature img">
                     </div>
 
                     <div class="">
@@ -152,19 +152,19 @@
 
                 <div class="flex space-x-4 md:space-x-6 lg:space-x-8">
                     <div>
-                        <img src="assets/image/gallery-1.png" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
-                        <img src="assets/image/gallery-4.png" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-1.png') }}" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-4.png') }}" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
                     </div>
 
                     <div>
-                        <img src="assets/image/gallery-2.png" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
-                        <img src="assets/image/gallery-5.png" alt="image" class="mb-3 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
-                        <img src="assets/image/gallery-6.png" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-2.png') }}" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-5.png') }}" alt="image" class="mb-3 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-6.png') }}" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
                     </div>
 
                     <div>
-                        <img src="assets/image/gallery-3.png" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
-                        <img src="assets/image/gallery-7.png" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-3.png') }}" alt="image" class="mb-4 md:mb-6 lg:mb-8 hover:opacity-75 transition ease-in-out duration-500">
+                        <img src="{{ asset('assets/image/gallery-7.png') }}" alt="image" class="hover:opacity-75 transition ease-in-out duration-500">
                     </div>
                 </div>
 
@@ -183,11 +183,11 @@
                 <h1 class="font-semibold text-gray-900 text-2xl md:text-4xl text-center leading-normal mb-14">What People Say <br> About D’house</h1>
 
                 <div class="hidden xl:block xl:absolute top-0">
-                    <img src="assets/image/testimoni-1.png" alt="Image">
+                    <img src="{{ asset('assets/image/testimoni-1.png') }}" alt="Image">
                 </div>
 
                 <div class="hidden xl:block xl:absolute top-32">
-                    <img src="assets/image/testimoni-2.png" alt="Image">
+                    <img src="{{ asset('assets/image/testimoni-2.png') }}" alt="Image">
                 </div>
 
                 <div class="flex flex-col md:flex-row md:items-center justify-center md:space-x-8 lg:space-x-12 mb-10 md:mb-20">
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="hidden xl:block xl:absolute right-0">
-                        <img src="assets/image/book.png" alt="Image">
+                        <img src="{{ asset('assets/image/book.png') }}" alt="Image">
                     </div>
 
                     <div class="hidden md:block bg-white xl:relative px-6 py-3 rounded-3xl">
