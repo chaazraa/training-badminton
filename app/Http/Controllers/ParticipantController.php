@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Participant;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
@@ -10,7 +10,7 @@ class ParticipantController extends Controller
     // Menampilkan semua peserta
     public function index()
     {
-        $participants = Participant::all();
+        $participants = User::where('role', 'participant')->get();
         return response()->json($participants);
     }
 
@@ -23,7 +23,7 @@ class ParticipantController extends Controller
             'age' => 'required|integer|min:1',
             'gender' => 'required|string',
             'phone' => 'required|string',
-            'email' => 'required|string|email|unique:participans,email',
+            'email' => 'required|string|email|unique:participants,email',
             'address' => 'required|string',
             'date' => 'required|date',
             'coach' => 'required|string',
@@ -61,7 +61,7 @@ class ParticipantController extends Controller
             'age' => 'nullable|integer|min:1',
             'gender' => 'nullable|string',
             'phone' => 'nullable|string',
-            'email' => 'nullable|string|email|unique:participans,email,' . $id,
+            'email' => 'nullable|string|email|unique:participants,email,' . $id,
             'address' => 'nullable|string',
             'date' => 'nullable|date',
             'coach' => 'nullable|string',
