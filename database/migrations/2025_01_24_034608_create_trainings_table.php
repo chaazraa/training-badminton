@@ -14,12 +14,7 @@ return new class extends Migration
     
     Schema::create('trainings', function (Blueprint $table) {
         $table->id();
-        $table->date('date');
-        $table->time('time');  
-        $table->integer('participant');
-        $table->string('instructor');
-        $table->integer('duration');
-        $table->text('notes')->nullable();
+
         $table->timestamps();
     });
     

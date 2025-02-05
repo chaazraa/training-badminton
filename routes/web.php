@@ -1,44 +1,44 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Models\User;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\ParticipantController;
-use App\Http\Controllers\ScheduleController;
 
-
-// Halaman setelah login
-Route::middleware('auth')->get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/users', function() {
+    $users = User::all();
+    return view('users.index', compact('users'));
 });
+Route::resource('/users', \App\Http\Controllers\UserController::class);
+Route::resource('users', UserController::class);
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
 
 Route::get('/', function () {
-    return view('landing');
-});
-
-Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/trainings', [trainingController::class, 'index'])->name('trainings.index');
-
 Route::middleware('auth')->group(function () {
-    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-    Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    //Route::resource('users', UserController::class);
-    Route::resource('trainings', TrainingController::class);
-    //Route::resource('participants', ParticipantController::class);
-   // Route::resource('schedules', ScheduleController::class);
-    //Route::get('/add-schedule', [ScheduleController::class, 'createSchedule']);
 });
 
 require __DIR__.'/auth.php';
