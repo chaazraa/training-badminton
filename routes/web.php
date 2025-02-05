@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\ScheduleController;
 
 
 Route::get('/users', function() {
@@ -25,6 +26,7 @@ Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.de
 Route::get('/coaches/create', [CoachController::class, 'create'])->name('coaches.create');
 Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
 Route::resource('coaches', CoachController::class);
+Route::resource('schedules', ScheduleController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
