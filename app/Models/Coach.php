@@ -7,16 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coach extends Model
 {
-    /** @use HasFactory<\Database\Factories\CoachFactory> */
     use HasFactory;
 
     protected $fillable = [
-        'image',
-        'name',
-        'phone',
-        'email',
-        'address',
-        'date',
-        'time',
+        'image', 'name', 'phone', 'email', 'address', 'date', 'time'
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coach;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -16,9 +16,10 @@ class CoachController extends Controller
      */
     public function index(): View
     {
-        $coaches = Coach::all();
-        return view('coaches.index', compact('coaches'));
+    $coaches = User::where('role', 'coach')->get();
+    return view('coaches.index', compact('coaches'));
     }
+
 
     /**
      * Show the form for creating a new resource.

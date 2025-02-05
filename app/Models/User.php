@@ -56,4 +56,12 @@ class User extends Authenticatable
     {
         return $this->role === 'participant';
     }
+    // app/Models/User.php
+
+    // Relasi ke model Coach
+    public function coach()
+    {
+        return $this->hasOne(Coach::class);
+    }
+
 }
