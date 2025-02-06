@@ -13,18 +13,23 @@
         @method('PUT')
 
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ $user->name }}" required><br>
+        <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+        @error('name') <span>{{ $message }}</span> @enderror
+        <br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ $user->email }}" required><br>
+        <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+        @error('email') <span>{{ $message }}</span> @enderror
+        <br>
 
         <label for="role">Role:</label>
         <select id="role" name="role" required>
             <option value="">-- Select Role --</option>
-            <option value="Admin" {{ $user->role == 'Admin' ? 'selected' : '' }}>Admin</option>
-            <option value="Participant" {{ $user->role == 'Participant' ? 'selected' : '' }}>Participant</option>
-            <option value="Coach" {{ $user->role == 'Coach' ? 'selected' : '' }}>Coach</option>
-        </select><br>
+            <option value="Participant" {{ old('role', $user->role) == 'Participant' ? 'selected' : '' }}>Participant</option>
+            <option value="Coach" {{ old('role', $user->role) == 'Coach' ? 'selected' : '' }}>Coach</option>
+        </select>
+        @error('role') <span>{{ $message }}</span> @enderror
+        <br>
 
         <button type="submit">Update User</button>
     </form>

@@ -25,14 +25,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:coach,participant',
+            // 'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            // 'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
 
@@ -58,8 +58,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            'role' => 'required|in:coach,participant',
-            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required',
+            // 'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         $user->name = $request->name;

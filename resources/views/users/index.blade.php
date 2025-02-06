@@ -1,5 +1,3 @@
-<!-- resources/views/users/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,56 +6,95 @@
     <title>Users List</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4; /* Soft background color */
+            color: #333; /* Dark text for contrast */
         }
+
         h1 {
-            color: #333;
+            color: #2c3e50; /* Darker heading color */
+            text-align: center; /* Center the heading */
+            margin-bottom: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+            border-radius: 8px; /* Rounded corners for the table */
+            overflow: hidden; /* Needed for rounded corners on the table */
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+
         th, td {
-            padding: 12px;
+            padding: 15px; /* Increased padding */
             text-align: left;
+            border-bottom: 1px solid #eee; /* Lighter border */
+            background-color: white; /* White background for cells */
         }
+
         th {
-            background-color: #f2f2f2;
+            background-color: #3498db; /* Blue header background */
+            color: white;
+            font-weight: 600; /* Semi-bold header font */
         }
+
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #ecf0f1; /* Light hover background */
         }
+
         a {
-            color: #007bff;
+            color: #3498db; /* Blue link color */
             text-decoration: none;
+            transition: color 0.3s ease; /* Smooth color transition */
         }
+
         a:hover {
             text-decoration: underline;
+            color:rgb(255, 255, 255); /* Darker blue on hover */
         }
+
         button {
             background-color: #e74c3c;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 16px; /* Adjusted padding */
             cursor: pointer;
+            border-radius: 4px; /* Rounded corners for buttons */
+            transition: background-color 0.3s ease; /* Smooth background transition */
         }
+
         button:hover {
             background-color: #c0392b;
+        }
+
+        .success-message {
+            color: #2ecc71; /* Green for success */
+            margin-bottom: 10px;
+        }
+
+        .create-button {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #27ae60; /* Green for create button */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-button:hover {
+            background-color: #219653;
         }
     </style>
 </head>
 <body>
     <h1>Users List</h1>
 
-    <!-- Tampilkan pesan sukses jika ada -->
     @if (session('success'))
-        <div style="color: green;">
+        <div class="success-message">
             {{ session('success') }}
         </div>
     @endif
@@ -68,7 +105,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Actions</th>
+                <th>Actions</th> 
             </tr>
         </thead>
         <tbody>
@@ -90,6 +127,6 @@
         </tbody>
     </table>
 
-    <a href="{{ route('users.create') }}" style="display: inline-block; margin-top: 10px;">Create New User</a>
+    <a href="{{ route('users.create') }}" class="create-button">Create New User</a>
 </body>
 </html>
