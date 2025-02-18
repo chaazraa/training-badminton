@@ -27,9 +27,9 @@ class ScheduleController extends Controller
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'id_peserta' => 'nullable|string',
-            'id_pelatih' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
+            'id_peserta' => 'required|string',
+            'id_pelatih' => 'required|string',
+            'lokasi' => 'required|string',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -43,6 +43,12 @@ class ScheduleController extends Controller
     public function show($id)
     {
         $schedule = Schedule::findOrFail($id);
+        return view('schedule.show', compact('schedule'));
+
+        // Mengambil data jadwal berdasarkan ID
+        $schedule = Schedule::findOrFail($id);
+
+        // Mengirimkan data jadwal ke view
         return view('schedule.show', compact('schedule'));
     }
 
@@ -60,15 +66,21 @@ class ScheduleController extends Controller
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'id_peserta' => 'nullable|string',
+            'id_peserta' => 'required|string',
             'id_pelatih' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
+            'lokasi' => 'required|string',
             'keterangan' => 'nullable|string',
         ]);
-        
 
         $schedule = Schedule::findOrFail($id);
-        $schedule->update($validatedData);
+        $schedule->tanggal = $validatedData['tanggal'];
+        $schedule->waktu_mulai = $validatedData['waktu_mulai'];
+        $schedule->waktu_selesai = $validatedData['waktu_selesai'];
+        $schedule->id_peserta = $validatedData['id_peserta'];
+        $schedule->id_pelatih = $validatedData['id_pelatih'];
+        $schedule->lokasi = $validatedData['lokasi'];
+        $schedule->keterangan = $validatedData['keterangan'];
+        $schedule->save();
 
         return redirect()->route('schedules.index')
                          ->with('success', 'Jadwal berhasil diperbarui.');

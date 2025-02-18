@@ -7,33 +7,33 @@
     <title>Tambah Jadwal Pelatihan</title>
 
     <style>
-        /* Perpaduan gradasi abu-abu */
         body {
-            background: linear-gradient(135deg, #d3d3d3, #a6a6a6);
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
-        }
+    background: linear-gradient(135deg,rgb(32, 48, 94), #4e73df); /* Gradasi biru tua ke muda */
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+}
 
-        .form-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
-            width: 100%;
-            text-align: left;
-        }
+.form-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px; /* Ukuran kotak diperkecil */
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-width: 450px; /* Ukuran lebar kotak diperkecil */
+    width: 100%;
+    text-align: left;
+}
+
 
         h1 {
             text-align: center;
             font-size: 28px;
             margin-bottom: 20px;
-            color: #4a4a4a;
+            color:rgb(35, 36, 105);
         }
 
         label {
@@ -53,7 +53,7 @@
 
         button {
             width: 100%;
-            background: #666666;
+            background:rgb(33, 60, 180);        
             color: white;
             padding: 14px;
             border: none;
@@ -64,14 +64,15 @@
         }
 
         button:hover {
-            background: #4a4a4a;
+            background:rgb(43, 72, 199);        
         }
 
         a {
             display: block;
             text-align: center;
             margin-top: 15px;
-            color: #4a4a4a;
+           
+            color:rgb(35, 36, 105);
             text-decoration: none;
         }
 
@@ -86,26 +87,28 @@
 
         <form action="{{ route('schedules.store') }}" method="POST">
             @csrf
-            <label for="tanggal">Tanggal:</label>
+            <label for="tanggal">Tanggal</label>
             <input type="date" name="tanggal" id="tanggal" required>
 
-            <label for="waktu_mulai">Waktu Mulai:</label>
+            <label for="waktu_mulai">Waktu Mulai</label>
             <input type="time" name="waktu_mulai" id="waktu_mulai" required>
 
-            <label for="waktu_selesai">Waktu Selesai:</label>
+            <label for="waktu_selesai">Waktu Selesai</label>
             <input type="time" name="waktu_selesai" id="waktu_selesai" required>
 
-            <label for="id_peserta">ID Peserta:</label>
+            <label for="id_peserta">ID Peserta</label>
             <input type="text" name="id_peserta" id="id_peserta" required>
-
-            <label for="id_pelatih">ID Pelatih:</label>
+            @error('id_peserta') <span class="text-danger">{{ $message }}</span> @enderror
+        
+            <label for="id_pelatih">ID Pelatih</label>
             <input type="text" name="id_pelatih" id="id_pelatih" required>
+            @error('id_pelatih') <span class="text-danger">{{ $message }}</span> @enderror
 
-            <label for="lokasi">Lokasi:</label>
+            <label for="lokasi">Lokasi</label>
             <input type="text" name="lokasi" id="lokasi" required>
 
-            <label for="keterangan">Keterangan:</label>
-            <textarea name="keterangan" id="keterangan" placeholder="Opsional..."></textarea>
+            <label for="keterangan">Keterangan</label>
+            <textarea name="keterangan" id="keterangan" ></textarea>
 
             <button type="submit">Simpan</button>
         </form>

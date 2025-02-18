@@ -2,86 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
 {
-    // Menampilkan semua peserta
-    public function index()
+    public function showForm()
     {
-        $participants = User::where('role', 'participant')->get();
-        return response()->json($participants);
+        return view('register');
     }
 
-    // Menyimpan peserta baru
-    public function store(Request $request)
+    public function register(Request $request)
     {
-        $validatedData = $request->validate([
-            'image' => 'required|string',
-            'name' => 'required|string',
-            'age' => 'required|integer|min:1',
-            'gender' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string|email|unique:participants,email',
-            'address' => 'required|string',
-            'date' => 'required|date',
-            'coach' => 'required|string',
-            'time' => 'required|date_format:H:i',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:participants,email',
+            'phone' => 'required|numeric',
+            'age' => 'required|integer|min:10|max:50'
         ]);
 
-        $participant = Participant::create($validatedData);
-        return response()->json(['message' => 'Data peserta berhasil disimpan.', 'participan' => $participan]);
-    }
+        Participant::create($request->all());
 
-    // Menampilkan peserta berdasarkan ID
-    public function show($id)
-    {
-        $participant = Participant::find($id);
-
-        if (!$participant) {
-            return response()->json(['message' => 'Peserta tidak ditemukan'], 404);
-        }
-
-        return response()->json($participant);
-    }
-
-    // Memperbarui peserta berdasarkan ID
-    public function update(Request $request, $id)
-    {
-        $participant = Participant::find($id);
-
-        if (!$participant) {
-            return response()->json(['message' => 'Peserta tidak ditemukan'], 404);
-        }
-
-        $validatedData = $request->validate([
-            'image' => 'nullable|string',
-            'name' => 'nullable|string',
-            'age' => 'nullable|integer|min:1',
-            'gender' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'email' => 'nullable|string|email|unique:participants,email,' . $id,
-            'address' => 'nullable|string',
-            'date' => 'nullable|date',
-            'coach' => 'nullable|string',
-            'time' => 'nullable|date_format:H:i',
-        ]);
-
-        $participant->update($validatedData);
-        return response()->json(['message' => 'Data peserta berhasil diperbarui.', 'participan' => $participan]);
-    }
-
-    // Menghapus peserta berdasarkan ID
-    public function destroy($id)
-    {
-        $participant = Participant::find($id);
-
-        if (!$participant) {
-            return response()->json(['message' => 'Peserta tidak ditemukan'], 404);
-        }
-
-        $participant->delete();
-        return response()->json(['message' => 'Data peserta berhasil dihapus.']);
+        return redirect()->back()->with('success', 'Pendaftaran berhasil!');
     }
 }

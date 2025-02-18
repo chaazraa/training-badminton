@@ -8,12 +8,17 @@ use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ParticipantController;
 
 
 Route::get('/users', function() {
     $users = User::all();
     return view('users.index', compact('users'));
 });
+
+Route::get('/register', [ParticipantController::class, 'showForm']);
+Route::post('/register', [ParticipantController::class, 'register']);
+
 Route::resource('/users', \App\Http\Controllers\UserController::class);
 Route::resource('users', UserController::class);
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -28,7 +33,6 @@ Route::get('/coaches/create', [CoachController::class, 'create'])->name('coaches
 Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
 Route::resource('coaches', CoachController::class);
 Route::resource('schedules', ScheduleController::class);
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
