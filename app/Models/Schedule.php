@@ -10,27 +10,7 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
-        'time',
-        'coach_id',
-        'participant_id',
-        'duration',
-        'notes'
+        'tanggal', 'waktu_mulai', 'waktu_selesai', 'id_peserta', 
+        'id_pelatih', 'lokasi', 'keterangan'
     ];
-
-    /**
-     * Relasi dengan model Coach.
-     */
-    public function coach()
-    {
-        return $this->belongsTo(Coach::class);
-    }
-
-    /**
-     * Relasi dengan model Participant.
-     */
-    public function participant()
-    {
-        return $this->belongsTo(Participant::class);
-    }
 }

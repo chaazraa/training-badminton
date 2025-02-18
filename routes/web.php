@@ -23,10 +23,12 @@ Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edi
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
+
 Route::get('/coaches/create', [CoachController::class, 'create'])->name('coaches.create');
 Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
 Route::resource('coaches', CoachController::class);
 Route::resource('schedules', ScheduleController::class);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
