@@ -16,8 +16,9 @@ Route::get('/users', function() {
     return view('users.index', compact('users'));
 });
 
-Route::get('/register', [ParticipantController::class, 'showForm']);
-Route::post('/register', [ParticipantController::class, 'register']);
+Route::get('participant/create', [ParticipantController::class, 'create'])->name('participant.create');
+Route::post('participant', [ParticipantController::class, 'store'])->name('participant.store');
+Route::get('participant', [ParticipantController::class, 'index'])->name('participant.index');
 
 Route::resource('/users', \App\Http\Controllers\UserController::class);
 Route::resource('users', UserController::class);

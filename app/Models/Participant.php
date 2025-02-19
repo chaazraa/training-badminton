@@ -9,5 +9,9 @@ class Participant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone', 'age'];
+    protected $fillable = [
+        'name',
+        'id_peserta',
+        'jadwal',
+    ];
 }

@@ -7,22 +7,37 @@ use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
 {
-    public function showForm()
+    // Menampilkan form pendaftaran peserta
+    public function create()
     {
-        return view('register');
+        return view('participant.create');
     }
 
-    public function register(Request $request)
+    // Menyimpan data peserta yang telah mendaftar
+    public function store(Request $request)
     {
+        // Validasi data peserta
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:participants,email',
-            'phone' => 'required|numeric',
-            'age' => 'required|integer|min:10|max:50'
+            'id_peserta' => 'required|numeric',
+            'jadwal' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
-        Participant::create($request->all());
+        // Menyimpan data peserta ke database
+        Participant::create([
+            'name' => $request->name,
+            'id_peserta' => $request->id_peserta,
+            'jadwal' => $request->jadwal,
+        ]);
 
-        return redirect()->back()->with('success', 'Pendaftaran berhasil!');
+        // Redirect ke halaman daftar peserta dengan pesan sukses
+        return redirect()->route('participant.index')->with('success', 'Pendaftaran berhasil!');
+    }
+
+    // Menampilkan daftar peserta yang telah terdaftar
+    public function index()
+    {
+        $participants = Participant::all(); // Ambil semua data peserta
+        return view('participant.index', compact('participants'));
     }
 }
