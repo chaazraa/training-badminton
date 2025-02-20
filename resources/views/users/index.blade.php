@@ -6,15 +6,15 @@
     <title>Users List</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            background-color: #f4f4f4; /* Soft background color */
-            color: #333; /* Dark text for contrast */
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         h1 {
-            color: #2c3e50; /* Darker heading color */
-            text-align: center; /* Center the heading */
+            color: #2c3e50;
+            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -22,62 +22,75 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
-            border-radius: 8px; /* Rounded corners for the table */
-            overflow: hidden; /* Needed for rounded corners on the table */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
-            padding: 15px; /* Increased padding */
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #eee; /* Lighter border */
-            background-color: white; /* White background for cells */
+            border-bottom: 1px solid #eee;
+            background-color: white;
         }
 
         th {
-            background-color: #3498db; /* Blue header background */
+            background-color: #3498db;
             color: white;
-            font-weight: 600; /* Semi-bold header font */
+            font-weight: 600;
         }
 
         tr:hover {
-            background-color: #ecf0f1; /* Light hover background */
+            background-color: #ecf0f1;
         }
 
-        a {
-            color: #3498db; /* Blue link color */
-            text-decoration: none;
-            transition: color 0.3s ease; /* Smooth color transition */
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color:rgb(255, 255, 255); /* Darker blue on hover */
-        }
-
-        button {
-            background-color: #e74c3c;
-            color: white;
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
             border: none;
-            padding: 8px 16px; /* Adjusted padding */
+            border-radius: 4px;
             cursor: pointer;
-            border-radius: 4px; /* Rounded corners for buttons */
-            transition: background-color 0.3s ease; /* Smooth background transition */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
         }
 
-        button:hover {
+        .btn-view {
+            background-color: #2ecc71; /* Hijau */
+        }
+
+        .btn-view:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        .btn-edit {
+            background-color: #3498db; /* Biru */
+        }
+
+        .btn-edit:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .btn-delete {
+            background-color: #e74c3c; /* Merah */
+        }
+
+        .btn-delete:hover {
             background-color: #c0392b;
+            transform: scale(1.05);
         }
 
-        .success-message {
-            color: #2ecc71; /* Green for success */
-            margin-bottom: 10px;
+        .form-delete {
+            display: inline;
         }
 
         .create-button {
             display: inline-block;
             margin-top: 10px;
-            background-color: #27ae60; /* Green for create button */
+            background-color: #27ae60;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
@@ -87,6 +100,11 @@
 
         .create-button:hover {
             background-color: #219653;
+        }
+
+        .success-message {
+            color: #2ecc71;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -115,11 +133,13 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        <a href="{{ route('users.edit', $user->id) }}">Edit</a> |
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-view">View</a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-edit">Edit</a>
+                        
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="form-delete">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="btn btn-delete">Delete</button>
                         </form>
                     </td>
                 </tr>
