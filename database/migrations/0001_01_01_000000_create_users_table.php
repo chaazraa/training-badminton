@@ -17,18 +17,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            // $table->string('password');
             $table->enum('role', ['coach', 'participant'])->default('participant');
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
 
-        // Tabel Password Reset Tokens
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        // // Tabel Password Reset Tokens
+        // Schema::create('password_reset_tokens', function (Blueprint $table) {
+        //     $table->string('email')->primary();
+        //     $table->string('token');
+        //     $table->timestamp('created_at')->nullable();
+        // });
 
         // Tabel Sessions
         Schema::create('sessions', function (Blueprint $table) {
@@ -47,7 +47,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('sessions');
-        Schema::dropIfExists('password_reset_tokens');
+        // Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
     }
 };

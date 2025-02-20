@@ -1,55 +1,39 @@
-<!-- resources/views/participant/index.blade.php -->
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Peserta</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
-</head>
-<body>
-    <h1>Daftar Peserta</h1>
+@extends('layouts.app')
 
-    <!-- Menampilkan pesan sukses -->
-    @if(session('success'))
-        <div style="color: green; font-weight: bold; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
-    @endif
+@section('content')
+<div class="container">
+    <h2>Participants List</h2>
+    <a href="{{ route('participants.create') }}" class="btn btn-primary mb-3">Add New Participant</a>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Nama Peserta</th>
-                <th>ID Peserta</th>
-                <th>Jadwal</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($participants as $participant)
-                <tr>
-                    <td>{{ $participant->name }}</td>
-                    <td>{{ $participant->id_peserta }}</td>
-                    <td>{{ $participant->jadwal }}</td>
-                </tr>
+            <tr>
+                <td>{{ $participant->id }}</td>
+                <td>{{ $participant->name }}</td>
+                <td>{{ $participant->phone }}</td>
+                <td>{{ $participant->email }}</td>
+                <td>
+                    <a href="{{ route('participants.show', $participant->id) }}" class="btn btn-info">View</a>
+                    <a href="{{ route('participants.edit', $participant->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('participants.destroy', $participant->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+</div>
+@endsection

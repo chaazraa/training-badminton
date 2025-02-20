@@ -1,69 +1,49 @@
-<!-- resources/views/participant/edit.blade.php -->
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Peserta</title>
-    <style>
-        /* Styling sederhana untuk form */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .form-container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-        h1 {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        input[type="text"], input[type="datetime-local"], button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>Edit Peserta</h1>
+@extends('layouts.app')
 
-        <form action="{{ route('participant.update', $participant->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <label for="name">Nama Peserta</label>
-            <input type="text" name="name" id="name" value="{{ $participant->name }}" required>
+@section('content')
+<div class="container">
+    <h2>Edit Participant</h2>
+    <a href="{{ route('participants.index') }}" class="btn btn-secondary">Back</a>
 
-            <label for="id_peserta">ID Peserta</label>
-            <input type="text" name="id_peserta" id="id_peserta" value="{{ $participant->id_peserta }}" required>
+    <form action="{{ route('participants.update', $participant->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-            <label for="jadwal">Jadwal</label>
-            <input type="datetime-local" name="jadwal" id="jadwal" value="{{ \Carbon\Carbon::parse($participant->jadwal)->format('Y-m-d\TH:i') }}" required>
+        <div class="mb-3">
+            <label for="image" class="form-label">Profile Image</label>
+            <input type="file" name="image" class="form-control">
+            <img src="{{ asset('storage/' . $participant->image) }}" width="100" class="mt-2">
+        </div>
 
-            <button type="submit">Simpan Perubahan</button>
-        </form>
-    </div>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" value="{{ $participant->name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" name="phone" class="form-control" value="{{ $participant->phone }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" value="{{ $participant->email }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select name="gender" class="form-control">
+                <option value="male" {{ $participant->gender == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ $participant->gender == 'female' ? 'selected' : '' }}>Female</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea name="address" class="form-control" required>{{ $participant->address }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+@endsection

@@ -8,17 +8,16 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreCoachRequest;
 use App\Http\Requests\UpdateCoachRequest;
+use App\Models\Coach; 
 
 class CoachController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
-    {
-    $coaches = User::where('role', 'coach')->get();
+
+public function index(): View
+{
+    $coaches = Coach::all(); // Ambil data dari tabel "coaches"
     return view('coaches.index', compact('coaches'));
-    }
+}
 
 
     /**
@@ -33,21 +32,26 @@ class CoachController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
-    {
-        $validatedData = $request->validate([
-            'image'    => 'required|string',
-            'name'     => 'required|string',
-            'phone'    => 'required|string',
-            'email'    => 'required|string|email|unique:coaches,email',
-            'address'  => 'required|string',
-            'date'     => 'required|date',
-            'time'     => 'required|date_format:H:i',
-     ]);
-     
-        $coach = Coach::create($validatedData);
-        return redirect()->route('coaches.index')->with('success', 'Coach created successfully!');
-       
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'birth_date' => 'nullable|date',
+        'birth_place' => 'nullable|string|max:255',
+        'phone' => 'nullable|string|max:15',
+        'email' => 'required|string|email|max:255|unique:coaches',
+        'address' => 'nullable|string',
+        'experience' => 'nullable|string|max:255',
+    ]);
+
+    if ($request->hasFile('photo')) {
+        $validatedData['photo'] = $request->file('photo')->store('photos', 'public');
     }
+
+    Coach::create($validatedData);
+
+    return redirect()->route('coaches.index')->with('success', 'Coach created successfully!');
+}
 
     /**
      * Display the specified resource.

@@ -66,9 +66,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->role = $request->role;
 
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
+        // if ($request->filled('password')) {
+        //     $user->password = Hash::make($request->password);
+        // }
 
         $user->save();
 
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            // 'password' => 'required'
         ]);
 
         if (!Auth::attempt($request->only('email', 'password'))) {

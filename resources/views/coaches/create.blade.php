@@ -1,3 +1,4 @@
+<!-- filepath: /d:/project/training-badminton/resources/views/coaches/create.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,31 +7,35 @@
     <title>Create Coach</title>
 </head>
 <body>
-    <h1>Create New Coach</h1>
-
-    <form action="{{ route('coaches.store') }}" method="POST">
+    <h1>Create Coach</h1>
+    <form action="{{ route('coaches.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label>Name:</label>
-        <input type="text" name="name" required><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo"><br>
 
-        <label>Email:</label>
-        <input type="email" name="email" required><br>
+        <label for="birth_date">Birth Date:</label>
+        <input type="date" id="birth_date" name="birth_date"><br>
 
-        <label>Phone:</label>
-        <input type="text" name="phone" required><br>
+        <label for="birth_place">Birth Place:</label>
+        <input type="text" id="birth_place" name="birth_place"><br>
 
-        <label>Address:</label>
-        <textarea name="address" required></textarea><br>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone"><br>
 
-        <label>Date:</label>
-        <input type="date" name="date" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
 
-        <label>Time:</label>
-        <input type="time" name="time" required><br>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address"></textarea><br>
 
-        <button type="submit">Save Coach</button>
+        <label for="experience">Experience:</label>
+        <input type="text" id="experience" name="experience"><br>
+
+        <button type="submit">Create Coach</button>
     </form>
-
-    <a href="{{ route('coaches.index') }}">Back to List</a>
+    <a href="{{ route('coaches.index') }}">Back to Coaches List</a>
 </body>
 </html>

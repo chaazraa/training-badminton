@@ -10,30 +10,36 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ParticipantController;
 
-
 Route::get('/users', function() {
     $users = User::all();
     return view('users.index', compact('users'));
 });
 
-Route::get('participant/create', [ParticipantController::class, 'create'])->name('participant.create');
-Route::post('participant', [ParticipantController::class, 'store'])->name('participant.store');
-Route::get('participant', [ParticipantController::class, 'index'])->name('participant.index');
+// Rute untuk ScheduleController
+Route::resource('schedules', ScheduleController::class);
 
-Route::resource('/users', \App\Http\Controllers\UserController::class);
+// Rute untuk UserController
 Route::resource('users', UserController::class);
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-
+// Rute untuk CoachController
+Route::resource('coaches', CoachController::class);
+Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
 Route::get('/coaches/create', [CoachController::class, 'create'])->name('coaches.create');
 Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
-Route::resource('coaches', CoachController::class);
-Route::resource('schedules', ScheduleController::class);
+Route::get('/coaches/{id}/edit', [CoachController::class, 'edit'])->name('coaches.edit');
+Route::put('/coaches/{id}', [CoachController::class, 'update'])->name('coaches.update');
+Route::delete('/coaches/{id}', [CoachController::class, 'destroy'])->name('coaches.destroy');
+Route::get('/coaches/{id}', [CoachController::class, 'show'])->name('coaches.show');
+
+// Rute untuk ParticipantController
+Route::get('/participants', [ParticipantController::class, 'index'])->name('participants.index');
+Route::get('/participants/create', [ParticipantController::class, 'create'])->name('participants.create');
+Route::post('/participants', [ParticipantController::class, 'store'])->name('participants.store');
+Route::get('/participants/{id}/edit', [ParticipantController::class, 'edit'])->name('participants.edit');
+Route::put('/participants/{id}', [ParticipantController::class, 'update'])->name('participants.update');
+Route::delete('/participants/{id}', [ParticipantController::class, 'destroy'])->name('participants.destroy');
+Route::get('/participants/{id}', [ParticipantController::class, 'show'])->name('participants.show');
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
