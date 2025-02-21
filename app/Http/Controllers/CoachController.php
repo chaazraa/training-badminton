@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -72,17 +73,40 @@ public function index(): View
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCoachRequest $request, $coach): RedirectResponse
+    public function update(UpdateCoachRequest $request, Coach $coach): RedirectResponse
     {
-        $coach->update($request->validated());
+        $validatedData = $request->validated();
+        
+        // Handle photo removal
+        if ($request->has('remove_photo') && $request->remove_photo) {
+            if ($coach->photo && Storage::exists($coach->photo)) {
+                Storage::delete($coach->photo);
+            }
+            $validatedData['photo'] = null;
+        }
+        // Handle photo upload
+        elseif ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($coach->photo && Storage::exists($coach->photo)) {
+                Storage::delete($coach->photo);
+            }
+            $validatedData['photo'] = $request->file('photo')->store('photos', 'public');
+        }
+
+        $coach->update($validatedData);
         return redirect()->route('coaches.index')->with('success', 'Coach updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($coach): RedirectResponse
+    public function destroy(Coach $coach): RedirectResponse
     {
+        // Hapus foto jika ada
+        if ($coach->photo && Storage::exists($coach->photo)) {
+            Storage::delete($coach->photo);
+        }
+        
         $coach->delete();
         return redirect()->route('coaches.index')->with('success', 'Coach deleted successfully!');
     }
