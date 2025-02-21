@@ -34,14 +34,14 @@ public function index(): View
     public function store(Request $request): RedirectResponse
 {
     $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        'birth_date' => 'nullable|date',
-        'birth_place' => 'nullable|string|max:255',
-        'phone' => 'nullable|string|max:15',
-        'email' => 'required|string|email|max:255|unique:coaches',
-        'address' => 'nullable|string',
-        'experience' => 'nullable|string|max:255',
+        'name'          => 'required|string|max:255',
+        'photo'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'birth_date'    => 'nullable|date',
+        'birth_place'   => 'nullable|string|max:255',
+        'phone'         => 'nullable|string|max:15',
+        'email'         => 'required|string|email|max:255|unique:coaches',
+        'address'       => 'nullable|string',
+        'experience'    => 'nullable|string|max:255',
     ]);
 
     if ($request->hasFile('photo')) {
