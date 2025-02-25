@@ -15,8 +15,10 @@ class ParticipantController extends Controller
 
     public function create()
     {
-        return view('participants.create');
+        $coaches = Coach::all(); // Ambil semua coach
+        return view('participants.create', compact('coaches'));
     }
+
 
     public function store(Request $request)
     {
@@ -27,6 +29,8 @@ class ParticipantController extends Controller
             'email' => 'required|email|unique:participants',
             'gender' => 'required|in:male,female',
             'address' => 'required|string',
+            'coach_id' => 'required|exists:coaches,id', // Pastikan coach_id valid
+
         ]);
 
         $imagePath = $request->file('image')->store('images', 'public');
@@ -39,7 +43,7 @@ class ParticipantController extends Controller
             'gender' => $request->gender,
             'address' => $request->address,
         ]);
-
+        
         return redirect()->route('participants.index')->with('success', 'Participant added successfully');
     }
 

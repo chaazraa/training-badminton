@@ -10,6 +10,7 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ParticipantController;
 
+
 Route::get('/users', function() {
     $users = User::all();
     return view('users.index', compact('users'));
@@ -39,7 +40,7 @@ Route::get('/participants/{id}/edit', [ParticipantController::class, 'edit'])->n
 Route::put('/participants/{id}', [ParticipantController::class, 'update'])->name('participants.update');
 Route::delete('/participants/{id}', [ParticipantController::class, 'destroy'])->name('participants.destroy');
 Route::get('/participants/{id}', [ParticipantController::class, 'show'])->name('participants.show');
-
+Route::resource('participants', ParticipantController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
