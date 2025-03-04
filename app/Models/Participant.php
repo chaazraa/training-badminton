@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,5 +8,7 @@ class Participant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image', 'name', 'phone', 'email', 'gender', 'address'];
+    protected $fillable = [
+        'name', 'phone', 'email', 'gender', 'address', 'image',
+    ];
 }
