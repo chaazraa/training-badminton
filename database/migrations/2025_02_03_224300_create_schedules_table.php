@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->date('tanggal');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
-            $table->string('id_peserta');
-            $table->string('id_pelatih');
+            $table->string('user_id');
+            $table->string('coach_id');
             $table->string('lokasi');
             $table->text('keterangan');
             $table->timestamps();

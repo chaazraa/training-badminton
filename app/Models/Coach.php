@@ -30,4 +30,8 @@ class Coach extends Model
             $coach->slug = Str::slug($coach->name) . '-' . uniqid();
         });
     }
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
