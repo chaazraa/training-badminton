@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use App\Models\Coach;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -17,7 +19,9 @@ class ScheduleController extends Controller
     // Form tambah jadwal
     public function create()
     {
-        return view('schedule.create');
+        $coaches = Coach::all();
+        $participants = Participant::all();
+        return view('schedule.create', compact('coaches', 'participants'));
     }
 
     // Simpan jadwal baru

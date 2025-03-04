@@ -96,12 +96,22 @@
             <label for="waktu_selesai">Waktu Selesai</label>
             <input type="time" name="waktu_selesai" id="waktu_selesai" required>
 
-            <label for="id_peserta">ID Peserta</label>
-            <input type="text" name="id_peserta" id="id_peserta" required>
+            <label for="id_peserta">Peserta</label>
+            <select name="id_peserta" id="id_peserta" required>
+                <option value="">Pilih Peserta</option>
+                @foreach($participants as $participant)
+                    <option value="{{ $participant->id }}">{{ $participant->name }}</option>
+                @endforeach
+            </select>
             @error('id_peserta') <span class="text-danger">{{ $message }}</span> @enderror
         
-            <label for="id_pelatih">ID Pelatih</label>
-            <input type="text" name="id_pelatih" id="id_pelatih" required>
+            <label for="id_pelatih">Pelatih</label>
+            <select name="id_pelatih" id="id_pelatih" required>
+                <option value="">Pilih Pelatih</option>
+                @foreach($coaches as $coach)
+                    <option value="{{ $coach->id }}">{{ $coach->name }}</option>
+                @endforeach
+            </select>
             @error('id_pelatih') <span class="text-danger">{{ $message }}</span> @enderror
 
             <label for="lokasi">Lokasi</label>
