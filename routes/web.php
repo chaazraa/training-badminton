@@ -11,13 +11,13 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\AdminController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('landing');
+});
 
-// Route::get('/home', function () {
-//     return view('home');
-// });
+Route::get('/home', function () {
+    return view('home');
+});
 
 // // Dashboard User
 // Route::middleware(['auth', ])->group(function () {
@@ -28,8 +28,6 @@ use App\Http\Controllers\AdminController;
 Route::middleware(['auth', 'admin'])->group(function () {
      Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
-
-
 
 Route::get('/users', function() {
     $users = User::all();
