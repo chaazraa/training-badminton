@@ -16,10 +16,10 @@ class CreateCoachesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('photo')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->string('birth_place')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
+            $table->date('birth_date')->nullable();
+            $table->string('birth_place')->nullable();
             $table->text('address')->nullable();
             $table->string('experience')->nullable();
             $table->timestamps();

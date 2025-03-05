@@ -59,7 +59,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'role' => 'required',
-            // 'password' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         $user->name = $request->name;
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            // 'password' => 'required'
+             'password' => 'required'
         ]);
 
         if (!Auth::attempt($request->only('email', 'password'))) {
