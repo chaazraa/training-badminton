@@ -19,6 +19,13 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return auth()->user()->role === 'admin'
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('user.dashboard');
+    })->name('dashboard');
+});
 
 // // Dashboard User
 // Route::middleware(['auth', ])->group(function () {
@@ -70,9 +77,9 @@ Route::resource('coaches', CoachController::class);
 //     ]);
 // });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
