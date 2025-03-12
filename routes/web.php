@@ -19,6 +19,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
+
 // // Dashboard User
 // Route::middleware(['auth', ])->group(function () {
 //     Route::get('/dashboard', [ParticipantController::class, 'index'])->name('dashboard');

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users List</title>
+    
+    <!-- Tambahkan FontAwesome untuk ikon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -46,7 +50,7 @@
 
         .btn {
             display: inline-block;
-            padding: 8px 16px;
+            padding: 6px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -54,6 +58,10 @@
             color: white;
             text-decoration: none;
             font-size: 14px;
+        }
+
+        .btn i {
+            margin-right: 5px;
         }
 
         .btn-view {
@@ -120,26 +128,33 @@
     <table>
         <thead>
             <tr>
-                <th>Name</th>
+                <th>ID</th>
+                <th>Nama</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Actions</th> 
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
                 <tr>
+                    <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-view">View</a>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-edit">Edit</a>
-                        
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="form-delete">
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-view">
+                            <i class="fas fa-eye"></i> Lihat
+                        </a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="form-delete" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-delete">Delete</button>
+                            <button type="submit" class="btn btn-delete">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -147,6 +162,8 @@
         </tbody>
     </table>
 
-    <a href="{{ route('users.create') }}" class="create-button">Create New User</a>
+    <a href="{{ route('users.create') }}" class="create-button">
+        <i class="fas fa-user-plus"></i> Tambah User
+    </a>
 </body>
 </html>

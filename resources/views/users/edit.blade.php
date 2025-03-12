@@ -88,23 +88,20 @@
         <form action="{{ route('users.update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
-            @error('name') <span>{{ $message }}</span> @enderror
-            <br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
-            @error('email') <span>{{ $message }}</span> @enderror
-            <br>
-
-            <label for="role">Role:</label>
-            <select id="role" name="role" required>
-                <option value="">-- Select Role --</option>
-                <option value="Participant" {{ old('role', $user->role) == 'Participant' ? 'selected' : '' }}>Participant</option>
-                <option value="Coach" {{ old('role', $user->role) == 'Coach' ? 'selected' : '' }}>Coach</option>
-            </select>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" value="{{ $user->email }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-control" name="role">
+                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                </select>
             @error('role') <span>{{ $message }}</span> @enderror
             <br>
 

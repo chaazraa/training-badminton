@@ -87,18 +87,20 @@
 
         <form action="{{ route('users.store') }}" method="POST">
             @csrf
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
-
-            <label for="role">Role:</label>
-            <select id="role" name="role" required>
-                <option value="">-- Select Role --</option>
-                <option value="Participant">Participant</option>
-                <option value="Coach">Coach</option>
-            </select><br>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-control" name="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
 
             <button type="submit">Create User</button>
         </form>

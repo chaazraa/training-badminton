@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Details</title>
+    <title>@yield('title', 'User Management')</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -33,12 +33,7 @@
             font-size: 24px;
         }
 
-        p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        a {
+        .btn {
             display: inline-block;
             margin-top: 20px;
             padding: 12px 25px;
@@ -50,7 +45,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        a:hover {
+        .btn:hover {
             background-color: #2980b9;
             transform: scale(1.05);
         }
@@ -58,13 +53,32 @@
 </head>
 <body>
     <div class="container">
-        <h1>User Details</h1>
+        @extends('layouts.app')
 
-        <p><strong>Name:</strong> {{ $user->name }}</p>
-        <p><strong>Email:</strong> {{ $user->email }}</p>
-        <p><strong>Role:</strong> {{ $user->role }}</p>
+@section('title', 'User Details')
 
-        <a href="{{ route('users.index') }}">Back to Users List</a>
+@section('content')
+<div class="container">
+    <h1 class="text-center">User Detail</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Nama: {{ $user->name }}</h4>
+            <p class="card-text">Email: {{ $user->email }}</p>
+            <p class="card-text">Role: {{ $user->role }}</p>
+            <p class="card-text">Gender: {{ $user->gender }}</p>
+            <p class="card-text">Alamat: {{ $user->address }}</p>
+            <p class="card-text">Tempat Lahir: {{ $user->birth_place }}</p>
+            <p class="card-text">Tanggal Lahir: {{ $user->birth_date }}</p>
+            <p class="card-text">Pengalaman: {{ $user->experience }}</p>
+            
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div>
+@endsection
+
+        @yield('content')
     </div>
 </body>
 </html>
