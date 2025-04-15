@@ -11,4 +11,8 @@ class Participant extends Model
     protected $fillable = [
         'name', 'phone', 'email', 'gender', 'address', 'image',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

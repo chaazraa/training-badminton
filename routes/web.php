@@ -31,11 +31,15 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 });
 
-// **Dashboard Admin**
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::resource('schedules', ScheduleController::class);
-    Route::resource('coaches', CoachController::class);
+    
+
+// 🔹 Route untuk Admin
+Route::middleware(['auth', RoleMiddleware::class.':admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('schedules',  AdminScheduleController::class);
+    Route::resource('coaches', AdminCoachController::class);
+    Route::resource('participants', AdminParticipantController::class)->middleware(CheckExpiredPayments::class);
+    Route::resource('payments', AdminPaymentController::class);
 });
 
 // **Dashboard User**
