@@ -83,11 +83,11 @@
             <label for="waktu_selesai">Waktu Selesai</label>
             <input type="time" id="waktu_selesai" name="waktu_selesai" value="{{ $schedule->waktu_selesai }}" required>
 
-            <label for="id_peserta">ID Peserta</label>
-            <input type="text" id="id_peserta" name="id_peserta" value="{{ $schedule->id_peserta }}" required>
+            <label for="user_id">User</label> <!-- Ganti id_peserta menjadi user_id -->
+            <input type="text" id="user_id" name="user_id" value="{{ $schedule->user_id }}" required>
 
-            <label for="id_pelatih">ID Pelatih</label>
-            <input type="text" id="id_pelatih" name="id_pelatih" value="{{ $schedule->id_pelatih }}" required>
+            <label for="coach_id">Coach</label> <!-- Ganti id_pelatih menjadi coach_id -->
+            <input type="text" id="coach_id" name="coach_id" value="{{ $schedule->coach_id }}" required>
 
             <label for="lokasi">Lokasi</label>
             <input type="text" id="lokasi" name="lokasi" value="{{ $schedule->lokasi }}" required>

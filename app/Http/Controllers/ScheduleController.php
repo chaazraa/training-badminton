@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Coach;
-use App\Models\Participant;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -20,8 +20,8 @@ class ScheduleController extends Controller
     public function create()
     {
         $coaches = Coach::all();
-        $participants = Participant::all();
-        return view('schedule.create', compact('coaches', 'participants'));
+        $users = User::all();
+        return view('schedule.create', compact('coaches', 'users'));
     }
 
     // Simpan jadwal baru
@@ -31,12 +31,13 @@ class ScheduleController extends Controller
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'id_peserta' => 'required|string',
-            'id_pelatih' => 'required|string',
+            'user_id' => 'required|string',  // Ganti id_user menjadi user_id
+            'coach_id' => 'required|string', // Ganti id_pelatih menjadi coach_id
             'lokasi' => 'required|string',
             'keterangan' => 'nullable|string',
         ]);
 
+        // Simpan data jadwal baru
         Schedule::create($validatedData);
 
         return redirect()->route('schedules.index')
@@ -47,12 +48,6 @@ class ScheduleController extends Controller
     public function show($id)
     {
         $schedule = Schedule::findOrFail($id);
-        return view('schedule.show', compact('schedule'));
-
-        // Mengambil data jadwal berdasarkan ID
-        $schedule = Schedule::findOrFail($id);
-
-        // Mengirimkan data jadwal ke view
         return view('schedule.show', compact('schedule'));
     }
 
@@ -70,8 +65,8 @@ class ScheduleController extends Controller
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'id_peserta' => 'required|string',
-            'id_pelatih' => 'required|string|max:255',
+            'user_id' => 'required|string',  // Ganti id_user menjadi user_id
+            'coach_id' => 'required|string', // Ganti id_pelatih menjadi coach_id
             'lokasi' => 'required|string',
             'keterangan' => 'nullable|string',
         ]);
@@ -80,8 +75,8 @@ class ScheduleController extends Controller
         $schedule->tanggal = $validatedData['tanggal'];
         $schedule->waktu_mulai = $validatedData['waktu_mulai'];
         $schedule->waktu_selesai = $validatedData['waktu_selesai'];
-        $schedule->id_peserta = $validatedData['id_peserta'];
-        $schedule->id_pelatih = $validatedData['id_pelatih'];
+        $schedule->user_id = $validatedData['user_id'];  // Ganti id_peserta menjadi user_id
+        $schedule->coach_id = $validatedData['coach_id']; // Ganti id_pelatih menjadi coach_id
         $schedule->lokasi = $validatedData['lokasi'];
         $schedule->keterangan = $validatedData['keterangan'];
         $schedule->save();

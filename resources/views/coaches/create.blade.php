@@ -59,39 +59,57 @@
         .back-link:hover {
             text-decoration: underline;
         }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>Create Coach</h1>
+
+    {{-- Tampilkan error validasi --}}
+    @if ($errors->any())
+        <div class="error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('coaches.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
 
         <label for="photo">Photo:</label>
         <input type="file" id="photo" name="photo">
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" value="{{ old('email') }}" required>
 
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone">
+        <input type="text" id="phone" name="phone" value="{{ old('phone') }}">
 
         <label for="birth_date">Birth Date:</label>
-        <input type="date" id="birth_date" name="birth_date">
+        <input type="date" id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
 
         <label for="birth_place">Birth Place:</label>
-        <input type="text" id="birth_place" name="birth_place">
+        <input type="text" id="birth_place" name="birth_place" value="{{ old('birth_place') }}">
 
         <label for="address">Address:</label>
-        <textarea id="address" name="address"></textarea>
+        <textarea id="address" name="address">{{ old('address') }}</textarea>
 
         <label for="experience">Experience:</label>
-        <input type="text" id="experience" name="experience">
+        <input type="text" id="experience" name="experience" value="{{ old('experience') }}">
 
         <button type="submit">Create Coach</button>
-    </form>
-    
+   
     <a href="{{ route('coaches.index') }}" class="back-link">Back to Coaches List</a>
+</form>
 </body>
 </html>

@@ -50,6 +50,18 @@ public function index(): View
     }
 
     Coach::create($validatedData);
+    // Coach::create([
+    //     'coach_id'     => $request->input('coach_id'),
+    //     'name'          => $validatedData['name'],
+    //     'photo'         => $validatedData['photo'] ?? null,
+    //     'birth_date'    => $validatedData['birth_date'],
+    //     'birth_place'   => $validatedData['birth_place'],
+    //     'phone'         => $validatedData['phone'],
+    //     'email'         => $validatedData['email'],
+    //     'address'       => $validatedData['address'],
+    //     'experience'    => $validatedData['experience'],
+    // ]);
+
 
     return redirect()->route('coaches.index')->with('success', 'Coach created successfully!');
 }

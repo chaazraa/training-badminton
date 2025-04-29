@@ -85,8 +85,8 @@
         <h1>Detail Jadwal</h1>
         <p><strong>Tanggal :</strong> {{ $schedule->tanggal }}</p>
         <p><strong>Waktu :</strong> {{ $schedule->waktu_mulai }} - {{ $schedule->waktu_selesai }}</p>
-        <p><strong>ID Peserta :</strong> {{ $schedule->id_peserta }}</p>
-        <p><strong>ID Pelatih :</strong> {{ $schedule->id_pelatih }}</p> 
+        <p><strong>ID User :</strong> {{ $schedule->user_id }}</p>
+        <p><strong>ID Coach :</strong> {{ $schedule->coach_id }}</p> 
         <p><strong>Lokasi :</strong> {{ $schedule->lokasi }}</p>
         <p><strong>Keterangan :</strong> {{ $schedule->keterangan }}</p>
 

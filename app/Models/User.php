@@ -63,12 +63,16 @@ public function isUser(): bool
 {
     return $this->role === 'user';
 }
-public function coachs()
+public function coaches()
     {
         return $this->hasMany(Coach::class);
     }
-    public function participants()
+public function participants()
     {
         return $this->hasMany(Participant::class);
+    }
+public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }
