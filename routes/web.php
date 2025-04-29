@@ -45,7 +45,7 @@ Route::put('/bookings/{booking}', [BookingController::class, 'update'])->name('b
 Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy'); // Hapus booking
 Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
 Route::get('/booking', [BookingController::class, 'create']);
-Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 
 
 // 🔹 Route untuk Admin
