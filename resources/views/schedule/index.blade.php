@@ -6,163 +6,235 @@
     <title>Daftar Jadwal Pelatihan Badminton</title>
     <style>
         body {
-            font-family: 'Nunito', sans-serif; /* Font yang lebih modern */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a2463, #3e5c76);
+            margin: 0;
             padding: 30px;
-            background-color: #f4f6f8; /* Warna latar belakang yang lebih lembut */
-            color: #343a40; /* Warna teks utama yang lebih gelap */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            box-sizing: border-box; /* Memastikan padding tidak mempengaruhi lebar elemen */
+            color: #333;
+        }
+
+        .container {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, #457b9d, #a8dadc);
         }
 
         h1 {
-            text-align: center;
+            color: #1d3557;
             margin-bottom: 30px;
-            color: #007bff; /* Warna utama yang lebih cerah */
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
         }
 
-        table {
-            width: 95%; /* Lebar tabel sedikit lebih lebar */
-            max-width: 1200px; /* Batas lebar maksimum tabel */
-            border-collapse: collapse;
-            background: #fff;
-            color: #495057; /* Warna teks tabel */
-            border-radius: 12px; /* Sudut tabel yang lebih melengkung */
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Efek bayangan yang lebih halus */
-            table-layout: fixed;
-            word-wrap: break-word;
-            margin-bottom: 30px; /* Ruang bawah tabel */
-        }
-
-        thead {
-            background-color: #007bff; /* Warna latar belakang header tabel */
-            color: #fff;
-        }
-
-        th, td {
-            padding: 18px 15px; /* Padding sel yang lebih besar */
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0; /* Garis pemisah sel yang lebih terang */
-            word-wrap: break-word;
-            white-space: normal;
-        }
-
-        th {
-            font-weight: 600;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f8f9fa; /* Warna latar belakang baris genap yang sedikit berbeda */
-        }
-
-        tbody tr:hover {
-            background-color: #e9ecef; /* Efek hover yang lebih lembut */
-            transition: background-color 0.2s ease-in-out; /* Transisi hover yang halus */
-        }
-
-        a, button {
-            background-color: #28a745; /* Warna tombol yang lebih menarik */
-            color: white;
-            padding: 10px 15px; /* Padding tombol yang lebih baik */
-            text-decoration: none;
-            border: none;
-            border-radius: 8px; /* Sudut tombol yang lebih melengkung */
-            cursor: pointer;
-            font-weight: 500;
-            display: inline-block;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover, button:hover {
-            background-color: #218838; /* Efek hover tombol yang lebih gelap */
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #457b9d, #a8dadc);
+            border-radius: 2px;
         }
 
         .success-message {
-            color: #198754; /* Warna pesan sukses yang lebih jelas */
-            background-color: #d1e7dd; /* Latar belakang pesan sukses */
-            border: 1px solid #badbcc; /* Border pesan sukses */
+            color: #198754;
+            background-color: #d1e7dd;
+            border: 1px solid #badbcc;
             padding: 12px 20px;
             border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        thead {
+            background: linear-gradient(to right, #457b9d, #1d3557);
+            color: #fff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e9f7fe;
+            transition: background-color 0.2s ease;
         }
 
         .action-buttons {
             display: flex;
-            gap: 5px; /* Jarak antar tombol aksi */
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            gap: 5px;
         }
 
-        .action-buttons form {
-            margin: 0; /* Menghilangkan margin form agar sejajar dengan link */
+        .btn-detail {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
         }
 
-        .action-buttons button {
-            background-color: #dc3545; /* Warna tombol hapus yang berbeda */
+        .btn-detail:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
         }
 
-        .action-buttons button:hover {
+        .btn-edit {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-delete:hover {
             background-color: #c82333;
+            transform: translateY(-2px);
         }
 
         .create-button {
-            background-color: #007bff; /* Warna tombol tambah yang sama dengan header */
-            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: linear-gradient(to right, #457b9d, #1d3557);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
         }
 
         .create-button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(to right, #1d3557, #457b9d);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Daftar Jadwal Pelatihan Badminton</h1>
+    <div class="container">
+        <h1>📅 Daftar Jadwal Pelatihan Badminton</h1>
 
-    @if(session('success'))
-        <div class="success-message">{{ session('success') }}</div>
-    @endif
+        @if(session('success'))
+            <div class="success-message">{{ session('success') }}</div>
+        @endif
 
-    <table>
-        <thead>
-            <tr>
-                <th>Tanggal</th>
-                <th>Waktu</th>
-                <th>Nama Peserta</th>
-                <th>Nama Pelatih</th>
-                <th>Lokasi</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($schedules as $schedule)
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ \Carbon\Carbon::parse($schedule->tanggal)->isoFormat('D MMMM Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }}</td>
-                    <td>{{ $schedule->user->name}}</td>
-                    <td>{{ $schedule->coach->name}}</td>
-                    <td>{{ $schedule->lokasi }}</td>
-                    <td>{{ $schedule->keterangan }}</td>
-                    <td class="action-buttons">
-                        <a href="{{ route('schedules.show', $schedule->id) }}">Detail</a>
-                        <a href="{{ route('schedules.edit', $schedule->id) }}">Edit</a>
-                        <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">Hapus</button>
-                        </form>
-                    </td>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Nama Peserta</th>
+                    <th>Nama Pelatih</th>
+                    <th>Lokasi</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($schedules as $schedule)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($schedule->tanggal)->isoFormat('D MMMM Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }}</td>
+                        <td>{{ $schedule->user->name }}</td>
+                        <td>{{ $schedule->coach->name }}</td>
+                        <td>{{ $schedule->lokasi }}</td>
+                        <td>{{ $schedule->keterangan }}</td>
+                        <td class="action-buttons">
+                            <a href="{{ route('schedules.show', $schedule->id) }}" class="btn btn-detail">
+                                <span>🔍</span> Detail
+                            </a>
+                            <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-edit">
+                                <span>✏️</span> Edit
+                            </a>
+                            <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">
+                                    <span>🗑️</span> Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    <a href="{{ route('schedules.create') }}" class="create-button">Tambah Jadwal Baru</a>
+        <a href="{{ route('schedules.create') }}" class="create-button">
+            <span>➕</span> Tambah Jadwal Baru
+        </a>
+    </div>
 </body>
 </html>

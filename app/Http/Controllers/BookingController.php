@@ -48,7 +48,7 @@ class BookingController extends Controller
             'user_id' => auth()->id(), // Otomatis mengambil user_id yang sedang login
             'coach_id' => $request->coach_id,
             'schedule_id' => $request->schedule_id,
-            'code' => 'BK-' . strtoupper(Str::random(6)),
+            // 'code' => 'BK-' . strtoupper(Str::random(6)),
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Booking berhasil dibuat.');

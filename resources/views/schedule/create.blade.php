@@ -7,32 +7,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --purple: #8b5cf6;
-            --pink: #ec4899;
-            --blue: #3b82f6;
-            --dark: #0f172a;
-            --light: #f8fafc;
+            --purple-light: #a78bfa;
+            --purple-dark: #6d28d9;
+            --blue-light: #60a5fa;
+            --blue-dark: #3b82f6;
+            --dark-primary: #1e293b;
+            --dark-secondary: #334155;
+            --light-text: #f8fafc;
+            --error-red: #f87171;
         }
 
         body {
-            background: linear-gradient(-45deg, #1e1b4b, #1e3a8a, #4338ca);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
             font-family: 'Nunito', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            color: var(--light);
+            color: var(--light-text);
             padding: 30px;
             box-sizing: border-box;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .form-container {
@@ -56,7 +51,7 @@
             text-align: center;
             font-size: 2.2em;
             margin-bottom: 35px;
-            color: #f0abfc;
+            color: var(--purple-light);
             font-weight: 700;
             letter-spacing: 0.5px;
             display: flex;
@@ -78,10 +73,10 @@
             font-size: 0.95em;
             display: flex;
             align-items: center;
+            gap: 8px;
         }
 
         label::before {
-            margin-right: 8px;
             font-size: 1.1em;
         }
 
@@ -104,7 +99,7 @@
             border: 1px solid rgba(192, 132, 252, 0.3);
             border-radius: 10px;
             background-color: rgba(15, 23, 42, 0.5);
-            color: var(--light);
+            color: var(--light-text);
             box-sizing: border-box;
             font-size: 16px;
             font-family: 'Nunito', sans-serif;
@@ -115,8 +110,8 @@
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            border-color: var(--purple-light);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
         }
 
         input::placeholder,
@@ -137,36 +132,36 @@
         }
 
         button {
-            background: linear-gradient(135deg, var(--purple), var(--pink));
+            background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
             color: white;
             padding: 16px 24px;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             font-size: 17px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
             width: 100%;
             box-sizing: border-box;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 15px rgba(53, 47, 71, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
         }
 
         button::before {
             content: "💾";
-            margin-right: 10px;
             font-size: 1.2em;
         }
 
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(167, 139, 250, 0.4);
         }
 
         a {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-top: 30px;
@@ -174,17 +169,21 @@
             text-decoration: none;
             font-size: 15px;
             transition: all 0.3s ease;
+            gap: 5px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         a::before {
             content: "↩️";
-            margin-right: 8px;
             transition: transform 0.3s ease;
         }
 
         a:hover {
-            color: #f0abfc;
-            text-decoration: none;
+            color: var(--purple-light);
+            border-color: var(--purple-light);
         }
 
         a:hover::before {
@@ -192,7 +191,7 @@
         }
 
         .text-danger {
-            color: #fca5a5;
+            color: var(--error-red);
             font-size: 0.85em;
             margin-top: -20px;
             margin-bottom: 20px;
@@ -201,7 +200,7 @@
 
         select {
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b5cf6'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a78bfa'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 12px center;
             background-size: 16px;
@@ -247,10 +246,14 @@
             <label for="keterangan">Keterangan</label>
             <textarea name="keterangan" id="keterangan" placeholder="Catatan (opsional)"></textarea>
 
-            <button type="submit">Simpan</button>
+            <button type="submit">
+                <span></span> Simpan
+            </button>
         </form>
 
-        <a href="{{ route('schedules.index') }}">Kembali</a>
+        <a href="{{ route('schedules.index') }}">
+            <span></span> Kembali ke Daftar Jadwal
+        </a>
     </div>
 </body>
 </html>

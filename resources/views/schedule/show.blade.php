@@ -1,96 +1,138 @@
-<!-- resources/views/schedule/show.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Jadwal Pelatihan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Styling body dengan gradasi biru tua ke biru muda */
+        :root {
+            --purple-light: #a78bfa;
+            --purple-dark: #6d28d9;
+            --blue-light: #60a5fa;
+            --blue-dark: #3b82f6;
+            --dark-primary: #1e293b;
+            --dark-secondary: #334155;
+            --light-text: #f8fafc;
+            --accent-color: #a78bfa;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #2c3e50, #3498db); /* Gradasi biru tua ke biru muda */
-            color: #333;
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+            font-family: 'Nunito', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            color: var(--light-text);
+            padding: 30px;
+            box-sizing: border-box;
             text-align: center;
         }
 
-        /* Styling untuk judul */
-        h1 {
-            color:  #2c3e50; /* Warna putih agar kontras dengan latar belakang */
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        /* Styling container untuk detail jadwal */
         .container {
-            background: rgba(255, 255, 255, 0.9); /* Transparansi untuk kotak */
+            background-color: rgba(30, 41, 59, 0.8);
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 600px;
             margin: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Styling untuk setiap paragraf */
-        p {
-            margin: 15px 0;
-            font-size: 1.1rem;
-            text-align: left; /* Agar teks lebih rapi dan sesuai dengan input */
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
-        /* Styling untuk input field */
-        input {
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            width: 100%;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+        .detail-item {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        /* Gaya input ketika dipilih */
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #2980b9;
-        }
-
-        /* Styling untuk link */
-        a {
+        .detail-item strong {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: #2980b9; /* Biru tua */
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            width: 120px;
+            font-weight: 600;
+            color: #cbd5e1;
         }
 
-        a:hover {
-            background-color: #1c5f76; /* Biru lebih gelap saat hover */
+        .detail-value {
+            color: var(--light-text);
+            font-size: 1.1em;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .back-link::before {
+            content: "↩️";
+            font-size: 1.2em;
+            margin-right: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .back-link:hover::before {
+            transform: translateX(-5px);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Detail Jadwal</h1>
-        <p><strong>Tanggal :</strong> {{ $schedule->tanggal }}</p>
-        <p><strong>Waktu :</strong> {{ $schedule->waktu_mulai }} - {{ $schedule->waktu_selesai }}</p>
-        <p><strong>ID User :</strong> {{ $schedule->user_id }}</p>
-        <p><strong>ID Coach :</strong> {{ $schedule->coach_id }}</p> 
-        <p><strong>Lokasi :</strong> {{ $schedule->lokasi }}</p>
-        <p><strong>Keterangan :</strong> {{ $schedule->keterangan }}</p>
+        <div class="detail-item">
+            <strong>Tanggal:</strong>
+            <span class="detail-value">{{ \Carbon\Carbon::parse($schedule->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Waktu:</strong>
+            <span class="detail-value">{{ $schedule->waktu_mulai }} - {{ $schedule->waktu_selesai }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>ID User:</strong>
+            <span class="detail-value">{{ $schedule->user_id }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>ID Coach:</strong>
+            <span class="detail-value">{{ $schedule->coach_id }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Lokasi:</strong>
+            <span class="detail-value">{{ $schedule->lokasi }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Keterangan:</strong>
+            <span class="detail-value">{{ $schedule->keterangan ?: '-' }}</span>
+        </div>
 
-        <a href="{{ route('schedules.index') }}">Kembali ke Daftar Jadwal</a>
+        <a href="{{ route('schedules.index') }}" class="back-link">
+            <span></span> Kembali ke Daftar Jadwal
+        </a>
     </div>
 </body>
 </html>
