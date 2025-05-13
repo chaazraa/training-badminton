@@ -47,15 +47,19 @@ class ScheduleController extends Controller
     // Tampilkan detail jadwal
     public function show($id)
     {
+        $coaches = Coach::all();
+        $users = User::all();
         $schedule = Schedule::findOrFail($id);
-        return view('schedule.show', compact('schedule'));
+        return view('schedule.show', compact('schedule', 'coaches', 'users'));
     }
 
     // Form edit jadwal
     public function edit($id)
     {
+        $coaches = Coach::all();
+        $users = User::all();
         $schedule = Schedule::findOrFail($id);
-        return view('schedule.edit', compact('schedule'));
+        return view('schedule.edit', compact('schedule', 'coaches', 'users'));
     }
 
     // Perbarui jadwal

@@ -115,11 +115,11 @@
         </div>
         <div class="detail-item">
             <strong>ID User:</strong>
-            <span class="detail-value">{{ $schedule->user_id }}</span>
+            <span class="detail-value">{{ $schedule->user->name }}</span>
         </div>
         <div class="detail-item">
             <strong>ID Coach:</strong>
-            <span class="detail-value">{{ $schedule->coach_id }}</span>
+            <span class="detail-value">{{ $schedule->coach->name }}</span>
         </div>
         <div class="detail-item">
             <strong>Lokasi:</strong>

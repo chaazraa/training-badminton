@@ -156,12 +156,26 @@
 
             <div class="form-group">
                 <label for="user_id">👤 User</label>
-                <input type="text" id="user_id" name="user_id" value="{{ $schedule->user_id }}" required>
+                <select id="user_id" name="user_id" required>
+                    <option value="" disabled selected>Pilih User</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ $user->id == $schedule->user_id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="coach_id">🏋️‍♂️ Coach</label>
-                <input type="text" id="coach_id" name="coach_id" value="{{ $schedule->coach_id }}" required>
+                <select id="coach_id" name="coach_id" required>
+                    <option value="" disabled selected>Pilih Coach</option>
+                    @foreach($coaches as $coach)
+                        <option value="{{ $coach->id }}" {{ $coach->id == $schedule->coach_id ? 'selected' : '' }}>
+                            {{ $coach->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
