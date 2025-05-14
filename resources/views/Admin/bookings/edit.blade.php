@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Jadwal Pelatihan</title>
+    <title>Edit Booking</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +14,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: #333;
         }
         .container {
             background-color: #f8f9fa;
@@ -35,7 +34,7 @@
             height: 8px;
             background: linear-gradient(to right, #457b9d, #a8dadc);
         }
-        h1 {
+        h2 {
             color: #1d3557;
             margin-bottom: 30px;
             font-size: 28px;
@@ -43,7 +42,7 @@
             text-align: center;
             position: relative;
         }
-        h1:after {
+        h2:after {
             content: "";
             position: absolute;
             bottom: -10px;
@@ -71,7 +70,7 @@
             font-weight: 600;
             font-size: 16px;
         }
-        input, textarea, select {
+        select, input {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #a8dadc;
@@ -80,14 +79,10 @@
             transition: all 0.3s ease;
             background-color: #f8f9fa;
         }
-        input:focus, textarea:focus, select:focus {
+        select:focus, input:focus {
             outline: none;
             border-color: #457b9d;
             box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
-        }
-        textarea {
-            min-height: 100px;
-            resize: vertical;
         }
         .submit-btn {
             display: inline-flex;
@@ -120,81 +115,57 @@
             text-decoration: none;
             gap: 5px;
             transition: all 0.2s ease;
-            padding: 10px 15px;
-            border-radius: 50px;
-            background-color: #f1f9ff;
         }
         .back-link:hover {
             color: #1d3557;
-            text-decoration: none;
-            background-color: #e1f0ff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✏️ Edit Jadwal Pelatihan</h1>
+        <h2>✏️ Edit Booking</h2>
 
-        <form action="{{ route('schedules.update', $schedule->id) }}" method="POST" class="edit-form">
+        <form method="POST" action="{{ route('bookings.update', $booking->id) }}" class="edit-form">
             @csrf
             @method('PUT')
 
-            <div class="form-group">
-                <label for="tanggal">📅 Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal" value="{{ $schedule->tanggal }}" required>
-            </div>
+            <!-- Hidden user_id -->
+            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-            <div class="form-group">
-                <label for="waktu_mulai">⏰ Waktu Mulai</label>
-                <input type="time" id="waktu_mulai" name="waktu_mulai" value="{{ $schedule->waktu_mulai }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="waktu_selesai">⏱️ Waktu Selesai</label>
-                <input type="time" id="waktu_selesai" name="waktu_selesai" value="{{ $schedule->waktu_selesai }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="user_id">👤 User</label>
-                <select id="user_id" name="user_id" required>
-                    <option value="" disabled selected>Pilih User</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ $user->id == $schedule->user_id ? 'selected' : '' }}>
-                            {{ $user->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
+            <!-- Coach Selection -->
             <div class="form-group">
                 <label for="coach_id">🏋️‍♂️ Coach</label>
-                <select id="coach_id" name="coach_id" required>
-                    <option value="" disabled selected>Pilih Coach</option>
-                    @foreach($coaches as $coach)
-                        <option value="{{ $coach->id }}" {{ $coach->id == $schedule->coach_id ? 'selected' : '' }}>
+                <select name="coach_id" id="coach_id" required>
+                    <option value="" disabled {{ $booking->coach_id ? '' : 'selected' }}>Select Coach</option>
+                    @foreach ($coaches as $coach)
+                        <option value="{{ $coach->id }}" {{ $booking->coach_id == $coach->id ? 'selected' : '' }}>
                             {{ $coach->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
+            <!-- Schedule Selection -->
             <div class="form-group">
-                <label for="lokasi">📍 Lokasi</label>
-                <input type="text" id="lokasi" name="lokasi" value="{{ $schedule->lokasi }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="keterangan">📝 Keterangan</label>
-                <textarea id="keterangan" name="keterangan" required>{{ $schedule->keterangan }}</textarea>
+                <label for="schedule_id">📅 Schedule</label>
+                <select name="schedule_id" id="schedule_id" required>
+                    <option value="" disabled {{ $booking->schedule_id ? '' : 'selected' }}>Select Schedule</option>
+                    @foreach ($schedules as $schedule)
+                        <option value="{{ $schedule->id }}" {{ $booking->schedule_id == $schedule->id ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::parse($schedule->tanggal)->format('d M Y') }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="submit-btn">
-                <span>💾</span> Perbarui Jadwal
+                <span>💾</span> Update Booking
             </button>
         </form>
 
-        <a href="{{ route('schedules.index') }}" class="back-link">
-            <span>🔙</span> Kembali ke Daftar Jadwal
+        <a href="{{ route('bookings.index') }}" class="back-link">
+            <span>🔙</span> Back to Booking List
         </a>
     </div>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Jadwal Pelatihan</title>
+    <title>Buat Booking Baru</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +14,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: #333;
         }
         .container {
             background-color: #f8f9fa;
@@ -35,7 +34,7 @@
             height: 8px;
             background: linear-gradient(to right, #457b9d, #a8dadc);
         }
-        h1 {
+        h2 {
             color: #1d3557;
             margin-bottom: 30px;
             font-size: 28px;
@@ -43,7 +42,7 @@
             text-align: center;
             position: relative;
         }
-        h1:after {
+        h2:after {
             content: "";
             position: absolute;
             bottom: -10px;
@@ -54,13 +53,6 @@
             background: linear-gradient(to right, #457b9d, #a8dadc);
             border-radius: 2px;
         }
-        .edit-form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 25px;
-        }
         .form-group {
             margin-bottom: 20px;
         }
@@ -70,8 +62,11 @@
             color: #457b9d;
             font-weight: 600;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        input, textarea, select {
+        select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #a8dadc;
@@ -80,16 +75,12 @@
             transition: all 0.3s ease;
             background-color: #f8f9fa;
         }
-        input:focus, textarea:focus, select:focus {
+        select:focus {
             outline: none;
             border-color: #457b9d;
             box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
         }
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        .submit-btn {
+        button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -106,7 +97,7 @@
             width: 100%;
             margin-top: 10px;
         }
-        .submit-btn:hover {
+        button:hover {
             background: linear-gradient(to right, #1d3557, #457b9d);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
@@ -120,58 +111,33 @@
             text-decoration: none;
             gap: 5px;
             transition: all 0.2s ease;
-            padding: 10px 15px;
-            border-radius: 50px;
-            background-color: #f1f9ff;
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
         }
         .back-link:hover {
             color: #1d3557;
-            text-decoration: none;
-            background-color: #e1f0ff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✏️ Edit Jadwal Pelatihan</h1>
+        <h2>Buat Booking Baru</h2>
 
-        <form action="{{ route('schedules.update', $schedule->id) }}" method="POST" class="edit-form">
+        <form method="POST" action="{{ route('bookings.store') }}">
             @csrf
-            @method('PUT')
 
             <div class="form-group">
-                <label for="tanggal">📅 Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal" value="{{ $schedule->tanggal }}" required>
+                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             </div>
 
             <div class="form-group">
-                <label for="waktu_mulai">⏰ Waktu Mulai</label>
-                <input type="time" id="waktu_mulai" name="waktu_mulai" value="{{ $schedule->waktu_mulai }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="waktu_selesai">⏱️ Waktu Selesai</label>
-                <input type="time" id="waktu_selesai" name="waktu_selesai" value="{{ $schedule->waktu_selesai }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="user_id">👤 User</label>
-                <select id="user_id" name="user_id" required>
-                    <option value="" disabled selected>Pilih User</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ $user->id == $schedule->user_id ? 'selected' : '' }}>
-                            {{ $user->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="coach_id">🏋️‍♂️ Coach</label>
-                <select id="coach_id" name="coach_id" required>
-                    <option value="" disabled selected>Pilih Coach</option>
-                    @foreach($coaches as $coach)
-                        <option value="{{ $coach->id }}" {{ $coach->id == $schedule->coach_id ? 'selected' : '' }}>
+                <label for="coach_id">👨‍🏫 Coach</label>
+                <select name="coach_id" id="coach_id" required>
+                    <option value="">Pilih Coach</option>
+                    @foreach ($coaches as $coach)
+                        <option value="{{ $coach->id }}">
                             {{ $coach->name }}
                         </option>
                     @endforeach
@@ -179,23 +145,25 @@
             </div>
 
             <div class="form-group">
-                <label for="lokasi">📍 Lokasi</label>
-                <input type="text" id="lokasi" name="lokasi" value="{{ $schedule->lokasi }}" required>
+                <label for="schedule_id">📅 Schedule</label>
+                <select name="schedule_id" id="schedule_id" required>
+                    <option value="">Pilih Schedule</option>
+                    @foreach ($schedules as $schedule)
+                        <option value="{{ $schedule->id }}">
+                            {{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
-            <div class="form-group">
-                <label for="keterangan">📝 Keterangan</label>
-                <textarea id="keterangan" name="keterangan" required>{{ $schedule->keterangan }}</textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">
-                <span>💾</span> Perbarui Jadwal
+            <button type="submit">
+                <span>➕</span> Buat Booking
             </button>
-        </form>
+            <a href="{{ route('bookings.index') }}" class="back-link">
+                <span>🔙</span> Kembali ke Daftar Booking
+            </a>
 
-        <a href="{{ route('schedules.index') }}" class="back-link">
-            <span>🔙</span> Kembali ke Daftar Jadwal
-        </a>
+        </form>
     </div>
 </body>
 </html>

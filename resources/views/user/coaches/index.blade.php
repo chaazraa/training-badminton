@@ -213,9 +213,9 @@
         <h2>👥 Daftar Pelatih</h2>
 
         <!-- Add Coach Button -->
-        <div style="text-align: center;">
+        {{-- <div style="text-align: center;">
             <a href="{{ route('coaches.create') }}" class="add-button">➕ Tambah Pelatih Baru</a>
-        </div>
+        </div> --}}
 
         <div class="coaches-grid">
             @forelse ($coaches as $coach)
@@ -252,10 +252,10 @@
                     </div>
                     
                     <div class="action-links">
-                        <a href="{{ route('coaches.show', $coach->id) }}" class="action-button view-button">
+                        <a href="{{ route('user.coaches.show', $coach->id) }}" class="action-button view-button">
                             <span>🔍</span> Detail
                         </a>
-                        <a href="{{ route('coaches.edit', $coach->id) }}" class="action-button edit-button">
+                        {{-- <a href="{{ route('coaches.edit', $coach->id) }}" class="action-button edit-button">
                             <span>✏️</span> Edit
                         </a>
                         <form action="{{ route('coaches.destroy', $coach->id) }}" method="POST" style="display:inline;">
@@ -266,7 +266,7 @@
                                     class="action-button delete-button">
                                 <span>🗑️</span> Hapus
                             </button>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             @empty
