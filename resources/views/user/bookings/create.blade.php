@@ -125,44 +125,43 @@
     <div class="container">
         <h2>Buat Booking Baru</h2>
 
-        <form method="POST" action="{{ route('bookings.store') }}">
+        <!-- Form untuk membuat booking -->
+        <form method="POST" action="{{ route('user.bookings.store') }}">
             @csrf
 
-            <div class="form-group">
-                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-            </div>
-
+            <!-- Pilih Coach -->
             <div class="form-group">
                 <label for="coach_id">👨‍🏫 Coach</label>
                 <select name="coach_id" id="coach_id" required>
                     <option value="">Pilih Coach</option>
                     @foreach ($coaches as $coach)
-                        <option value="{{ $coach->id }}">
-                            {{ $coach->name }}
-                        </option>
+                        <option value="{{ $coach->id }}">{{ $coach->name }}</option>
                     @endforeach
                 </select>
             </div>
 
+            <!-- Pilih Schedule -->
             <div class="form-group">
                 <label for="schedule_id">📅 Schedule</label>
                 <select name="schedule_id" id="schedule_id" required>
                     <option value="">Pilih Schedule</option>
                     @foreach ($schedules as $schedule)
                         <option value="{{ $schedule->id }}">
-                            {{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}
+                            {{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y H:i') }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
+            <!-- Tombol Submit -->
             <button type="submit">
                 <span>➕</span> Buat Booking
             </button>
-            <a href="{{ route('bookings.index') }}" class="back-link">
+
+            <!-- Kembali ke Daftar Booking -->
+            <a href="{{ route('user.bookings.index') }}" class="back-link">
                 <span>🔙</span> Kembali ke Daftar Booking
             </a>
-
         </form>
     </div>
 </body>

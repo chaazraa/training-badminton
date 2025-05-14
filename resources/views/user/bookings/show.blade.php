@@ -128,7 +128,7 @@
                 <span class="detail-icon">👤</span>
                 <div class="detail-content">
                     <div class="detail-label">User</div>
-                    <div class="detail-value">{{ $booking->user->name }}</div>
+                    <div class="detail-value">{{ $booking->user->name ?? 'User tidak tersedia' }}</div>
                 </div>
             </div>
             
@@ -136,7 +136,7 @@
                 <span class="detail-icon">🏋️</span>
                 <div class="detail-content">
                     <div class="detail-label">Coach</div>
-                    <div class="detail-value">{{ $booking->coach->name }}</div>
+                    <div class="detail-value">{{ $booking->coach->name ?? 'Pelatih belum ditentukan' }}</div>
                 </div>
             </div>
             
@@ -144,12 +144,15 @@
                 <span class="detail-icon">📅</span>
                 <div class="detail-content">
                     <div class="detail-label">Schedule</div>
-                    <div class="detail-value">{{ $booking->schedule->tanggal }} - {{ $booking->schedule->waktu_mulai }} - {{ $booking->schedule->waktu_selesai }}</div>
+                    <div class="detail-value">{{ $booking->schedule->tanggal ?? 'Jadwal tidak tersedia' }} - 
+                        {{ $booking->schedule->waktu_mulai ?? 'Waktu mulai tidak tersedia' }} - 
+                        {{ $booking->schedule->waktu_selesai ?? 'Waktu selesai tidak tersedia' }}
+                    </div>
                 </div>
             </div>
         </div>
 
-        <a href="{{ route('bookings.index') }}" class="back-button">
+        <a href="{{ route('user.bookings.index') }}" class="back-button">
             <span>🔙</span> Back to Booking List
         </a>
     </div>

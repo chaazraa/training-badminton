@@ -166,7 +166,7 @@
 
         <!-- Add Booking Button -->
         <div style="text-align: center;">
-            <a href="{{ route('bookings.create') }}" class="add-button">➕ Tambah Booking Baru</a>
+            <a href="{{ route('user.bookings.create') }}" class="add-button">➕ Tambah Booking Baru</a>
         </div>
 
         <ul>
@@ -188,17 +188,17 @@
                     </div>
                     <div class="action-links">
                         <!-- View Button -->
-                        <a href="{{ route('bookings.show', $booking) }}" class="action-button view-button">
+                        <a href="{{ route('user.bookings.show', $booking) }}" class="action-button view-button">
                             <span>🔍</span> Detail
                         </a>
 
                         <!-- Edit Button -->
-                        <a href="{{ route('bookings.edit', $booking) }}" class="action-button edit-button">
+                        <a href="{{ route('user.bookings.edit', $booking) }}" class="action-button edit-button">
                             <span>✏️</span> Edit
                         </a>
 
                         <!-- Delete Form -->
-                        <form action="{{ route('bookings.destroy', $booking) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('user.bookings.destroy', $booking) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" 

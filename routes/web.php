@@ -41,11 +41,11 @@ Route::middleware('auth')->group(function () {
 // =======================
 Route::middleware(['auth', RoleMiddleware::class . ':user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('bookings', UserBookingController::class);
+    Route::resource('bookings', UserBookingController::class);  // Ini sudah mencakup create, store, show, dll.
     Route::get('/schedules', [UserScheduleController::class, 'index'])->name('schedules.index');
-    Route::get('/schedules/{schedule}', [UserScheduleController::class, 'show'])->name('schedules.show'); // Tambahkan route ini
+    Route::get('/schedules/{schedule}', [UserScheduleController::class, 'show'])->name('schedules.show');
     Route::get('/coaches', [UserCoachController::class, 'index'])->name('coaches.index');
-    Route::get('/coaches/{coach}', [UserCoachController::class, 'show'])->name('coaches.show'); // Tambahkan route ini
+    Route::get('/coaches/{coach}', [UserCoachController::class, 'show'])->name('coaches.show');
 });
 
 

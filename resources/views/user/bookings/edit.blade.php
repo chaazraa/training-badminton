@@ -126,7 +126,7 @@
     <div class="container">
         <h2>✏️ Edit Booking</h2>
 
-        <form method="POST" action="{{ route('bookings.update', $booking->id) }}" class="edit-form">
+        <form method="POST" action="{{ route('user.bookings.update', $booking->id) }}" class="edit-form">
             @csrf
             @method('PUT')
 
@@ -137,7 +137,7 @@
             <div class="form-group">
                 <label for="coach_id">🏋️‍♂️ Coach</label>
                 <select name="coach_id" id="coach_id" required>
-                    <option value="" disabled {{ $booking->coach_id ? '' : 'selected' }}>Select Coach</option>
+                    <option value="" disabled {{ !$booking->coach_id ? 'selected' : '' }}>Select Coach</option>
                     @foreach ($coaches as $coach)
                         <option value="{{ $coach->id }}" {{ $booking->coach_id == $coach->id ? 'selected' : '' }}>
                             {{ $coach->name }}
@@ -150,7 +150,7 @@
             <div class="form-group">
                 <label for="schedule_id">📅 Schedule</label>
                 <select name="schedule_id" id="schedule_id" required>
-                    <option value="" disabled {{ $booking->schedule_id ? '' : 'selected' }}>Select Schedule</option>
+                    <option value="" disabled {{ !$booking->schedule_id ? 'selected' : '' }}>Select Schedule</option>
                     @foreach ($schedules as $schedule)
                         <option value="{{ $schedule->id }}" {{ $booking->schedule_id == $schedule->id ? 'selected' : '' }}>
                             {{ \Carbon\Carbon::parse($schedule->tanggal)->format('d M Y') }}
@@ -164,7 +164,7 @@
             </button>
         </form>
 
-        <a href="{{ route('bookings.index') }}" class="back-link">
+        <a href="{{ route('user.bookings.index') }}" class="back-link">
             <span>🔙</span> Back to Booking List
         </a>
     </div>
