@@ -43,6 +43,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':user'])->prefix('user')->na
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     Route::resource('bookings', UserBookingController::class);
     Route::get('/schedules', [UserScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/schedules/{schedule}', [UserScheduleController::class, 'show'])->name('schedules.show'); // Tambahkan route ini
     Route::get('/coaches', [UserCoachController::class, 'index'])->name('coaches.index');
     Route::get('/coaches/{coach}', [UserCoachController::class, 'show'])->name('coaches.show'); // Tambahkan route ini
 });

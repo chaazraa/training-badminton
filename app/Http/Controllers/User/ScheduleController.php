@@ -2,100 +2,59 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use App\Models\Coach;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ScheduleController extends Controller
 {
-    // Tampilkan semua jadwal
-    public function index()
+    // Menampilkan semua jadwal
+    public function index(): View
     {
-        $schedules = Schedule::all();
-        return view('schedule.index', compact('schedules'));
+        $schedules = Schedule::with('coach')->where('user_id', auth()->id())->get();
+        return view('user.schedules.index', compact('schedules'));
     }
 
-    // Form tambah jadwal
-    public function create()
+    // Menampilkan detail jadwal
+    public function show($id): View
+    {
+        $schedule = Schedule::with('coach')->where('user_id', auth()->id())->findOrFail($id);
+        return view('user.schedules.show', compact('schedule'));
+    }
+
+    // *Note*: Method create/store/edit/update/destroy biasanya tidak digunakan oleh user biasa.
+    // Jika kamu ingin user hanya bisa melihat jadwalnya, cukup gunakan index dan show.
+    // Namun jika kamu ingin user bisa request buat jadwal sendiri, kamu bisa aktifkan ini:
+
+    /*
+    public function create(): View
     {
         $coaches = Coach::all();
-        $users = User::all();
-        return view('schedule.create', compact('coaches', 'users'));
+        return view('user.schedules.create', compact('coaches'));
     }
 
-    // Simpan jadwal baru
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'user_id' => 'required|string',  // Ganti id_user menjadi user_id
-            'coach_id' => 'required|string', // Ganti id_pelatih menjadi coach_id
-            'lokasi' => 'required|string',
+            'coach_id' => 'required|exists:coaches,id',
+            'lokasi' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 
-        // Simpan data jadwal baru
+        $validatedData['user_id'] = auth()->id(); // Set user ID otomatis
+
         Schedule::create($validatedData);
 
-        return redirect()->route('schedules.index')
-                         ->with('success', 'Jadwal berhasil ditambahkan.');
+        return redirect()->route('user.schedules.index')
+                         ->with('success', 'Jadwal berhasil dibuat.');
     }
+    */
 
-    // Tampilkan detail jadwal
-    public function show($id)
-    {
-        $coaches = Coach::all();
-        $users = User::all();
-        $schedule = Schedule::findOrFail($id);
-        return view('schedule.show', compact('schedule', 'coaches', 'users'));
-    }
-
-    // Form edit jadwal
-    public function edit($id)
-    {
-        $coaches = Coach::all();
-        $users = User::all();
-        $schedule = Schedule::findOrFail($id);
-        return view('schedule.edit', compact('schedule', 'coaches', 'users'));
-    }
-
-    // Perbarui jadwal
-    public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'tanggal' => 'required|date',
-            'waktu_mulai' => 'required',
-            'waktu_selesai' => 'required',
-            'user_id' => 'required|string',  // Ganti id_user menjadi user_id
-            'coach_id' => 'required|string', // Ganti id_pelatih menjadi coach_id
-            'lokasi' => 'required|string',
-            'keterangan' => 'nullable|string',
-        ]);
-
-        $schedule = Schedule::findOrFail($id);
-        $schedule->tanggal = $validatedData['tanggal'];
-        $schedule->waktu_mulai = $validatedData['waktu_mulai'];
-        $schedule->waktu_selesai = $validatedData['waktu_selesai'];
-        $schedule->user_id = $validatedData['user_id'];  // Ganti id_peserta menjadi user_id
-        $schedule->coach_id = $validatedData['coach_id']; // Ganti id_pelatih menjadi coach_id
-        $schedule->lokasi = $validatedData['lokasi'];
-        $schedule->keterangan = $validatedData['keterangan'];
-        $schedule->save();
-
-        return redirect()->route('schedules.index')
-                         ->with('success', 'Jadwal berhasil diperbarui.');
-    }
-
-    // Hapus jadwal
-    public function destroy($id)
-    {
-        $schedule = Schedule::findOrFail($id);
-        $schedule->delete();
-
-        return redirect()->route('schedules.index')
-                         ->with('success', 'Jadwal berhasil dihapus.');
-    }
+    // Jika tidak digunakan, biarkan method create/store dalam komentar
 }

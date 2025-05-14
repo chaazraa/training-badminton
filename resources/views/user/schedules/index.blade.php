@@ -213,28 +213,28 @@
                         <td>{{ $schedule->lokasi }}</td>
                         <td>{{ $schedule->keterangan }}</td>
                         <td class="action-buttons">
-                            <a href="{{ route('schedules.show', $schedule->id) }}" class="btn btn-detail">
+                            <a href="{{ route('user.schedules.show', $schedule->id) }}" class="btn btn-detail">
                                 <span>🔍</span> Detail
                             </a>
-                            <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-edit">
+                            {{-- <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-edit">
                                 <span>✏️</span> Edit
-                            </a>
-                            <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
+                            </a> --}}
+                            {{-- <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">
                                     <span>🗑️</span> Hapus
                                 </button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <a href="{{ route('schedules.create') }}" class="create-button">
+        {{-- <a href="{{ route('schedules.create') }}" class="create-button">
             <span>➕</span> Tambah Jadwal Baru
-        </a>
+        </a> --}}
     </div>
 </body>
 </html>

@@ -130,7 +130,7 @@
             <span class="detail-value">{{ $schedule->keterangan ?: '-' }}</span>
         </div>
 
-        <a href="{{ route('schedules.index') }}" class="back-link">
+        <a href="{{ route('user.schedules.index') }}" class="back-link">
             <span></span> Kembali ke Daftar Jadwal
         </a>
     </div>
