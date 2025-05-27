@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,14 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'image',
-        'role',
         'email',
-        'gender',
-        'address',
-        'birth_date',
-        'birth_place',
-        'experience',
+        'password',
+        'role',
     ];
 
     /**
@@ -47,32 +42,36 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'name',
+            'email',
             'password' => 'hashed',
-            'birth_date' => 'date',
+            'role',
         ];
     }
-
     
-public function isAdmin(): bool
-{
-    return $this->role === 'admin';
-}   
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }   
 
-public function isUser(): bool
-{
-    return $this->role === 'user';
-}
-public function coaches()
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    public function coaches()
     {
         return $this->hasMany(Coach::class);
     }
-public function participants()
+
+    public function participants()
     {
         return $this->hasMany(Participant::class);
     }
-public function bookings()
+    
+    public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
+
 }
