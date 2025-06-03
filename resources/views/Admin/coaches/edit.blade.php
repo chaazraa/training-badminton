@@ -157,7 +157,7 @@
     <div class="container">
         <h1>👨‍🏫 Edit Coach</h1>
 
-        <form action="{{ route('coaches.update', $coach->id) }}" method="POST" enctype="multipart/form-data" class="edit-form">
+        <form action="{{ route('admin.coaches.update', $coach->id) }}" method="POST" enctype="multipart/form-data" class="edit-form">
             @csrf
             @method('PUT')
 
@@ -222,7 +222,7 @@
             </button>
         </form>
 
-        <a href="{{ route('coaches.index') }}" class="back-link">
+        <a href="{{ route('admin.coaches.index') }}" class="back-link">
             <span>🔙</span> Back to Coaches List
         </a>
     </div>

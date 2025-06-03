@@ -149,7 +149,7 @@
             </div>
         </div>
 
-        <a href="{{ route('bookings.index') }}" class="back-button">
+        <a href="{{ route('admin.bookings.index') }}" class="back-button">
             <span>🔙</span> Back to Booking List
         </a>
     </div>

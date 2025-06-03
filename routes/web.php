@@ -7,13 +7,13 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\CheckExpiredPayments;
 
 // User Controllers
-use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\UserDashboardController as UserDashboardController;
 use App\Http\Controllers\User\BookingController as UserBookingController;
 use App\Http\Controllers\User\ScheduleController as UserScheduleController;
 use App\Http\Controllers\User\CoachController as UserCoachController;
 
 // Admin Controllers
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\ParticipantController as AdminParticipantController;
@@ -60,8 +60,16 @@ Route::middleware(['auth', RoleMiddleware::class . ':user'])->prefix('user')->na
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('schedules', AdminScheduleController::class);
+    Route::get('/schedules', [AdminScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/schedules/{schedule}', [AdminScheduleController::class, 'show'])->name('schedules.show');
+    Route::get('/schedules/create', [AdminScheduleController::class, 'create'])->name('schedules.create');
+    Route::get('/schedules/{schedule}/edit', [AdminScheduleController::class, 'edit'])->name('schedules.edit');
     Route::resource('coaches', AdminCoachController::class);
-    Route::resource('participants', AdminParticipantController::class)->middleware(CheckExpiredPayments::class);
+    Route::get('/coaches', [AdminCoachController::class, 'index'])->name('coaches.index');
+    Route::get('/coaches/{coach}', [AdminCoachController::class, 'show'])->name('coaches.show');
+    Route::get('/coaches/create', [AdminCoachController::class, 'create'])->name('coaches.create');
+    Route::get('/coaches/{coach}/edit', [AdminCoachController::class, 'edit'])->name('coaches.edit');
+    Route::resource('bookings', UserBookingController::class);  // Ini sudah mencakup create, store, show, dll.
     Route::resource('payments', AdminPaymentController::class);
 });
 

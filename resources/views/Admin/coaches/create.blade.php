@@ -166,7 +166,7 @@
             </div>
         @endif
 
-        <form action="{{ route('coaches.store') }}" method="POST" enctype="multipart/form-data" class="create-form">
+        <form action="{{ route('admin.coaches.store') }}" method="POST" enctype="multipart/form-data" class="create-form">
             @csrf
 
             <div class="form-group">
@@ -222,7 +222,7 @@
             </button>
         </form>
 
-        <a href="{{ route('coaches.index') }}" class="back-link">
+        <a href="{{ route('admin.coaches.index') }}" class="back-link">
             <span>🔙</span> Back to Coaches List
         </a>
     </div>

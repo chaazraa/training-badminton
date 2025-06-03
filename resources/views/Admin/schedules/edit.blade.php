@@ -135,7 +135,7 @@
     <div class="container">
         <h1>✏️ Edit Jadwal Pelatihan</h1>
 
-        <form action="{{ route('schedules.update', $schedule->id) }}" method="POST" class="edit-form">
+        <form action="{{ route('admin.schedules.update', $schedule->id) }}" method="POST" class="edit-form">
             @csrf
             @method('PUT')
 
@@ -193,7 +193,7 @@
             </button>
         </form>
 
-        <a href="{{ route('schedules.index') }}" class="back-link">
+        <a href="{{ route('admin.schedules.index') }}" class="back-link">
             <span>🔙</span> Kembali ke Daftar Jadwal
         </a>
     </div>

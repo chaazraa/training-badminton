@@ -125,7 +125,7 @@
     <div class="container">
         <h2>Buat Booking Baru</h2>
 
-        <form method="POST" action="{{ route('bookings.store') }}">
+        <form method="POST" action="{{ route('admin.bookings.store') }}">
             @csrf
 
             <div class="form-group">
@@ -159,7 +159,7 @@
             <button type="submit">
                 <span>➕</span> Buat Booking
             </button>
-            <a href="{{ route('bookings.index') }}" class="back-link">
+            <a href="{{ route('admin.bookings.index') }}" class="back-link">
                 <span>🔙</span> Kembali ke Daftar Booking
             </a>
 

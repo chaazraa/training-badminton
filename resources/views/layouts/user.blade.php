@@ -78,14 +78,14 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow">
+                      <div class="bg-white p-6 rounded-lg shadow">
                     <div class="flex items-center">
-                        <div class="p-3 bg-green-100 rounded-full">
-                            <span class="text-2xl">🔥</span>
+                        <div class="p-3 bg-red-100 rounded-full">
+                            <span class="text-2xl">🏸</span> <!-- ikon shuttlecock -->
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-gray-500 text-sm">Kalori Terbakar</h3>
-                            <p class="text-2xl font-bold mt-1">12,345 kcal</p>
+                            <h3 class="text-gray-500 text-sm">Jumlah Smash</h3>
+                            <p class="text-2xl font-bold mt-1">1,234 Smash</p>
                         </div>
                     </div>
                 </div>

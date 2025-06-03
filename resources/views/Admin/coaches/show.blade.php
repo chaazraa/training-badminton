@@ -194,10 +194,10 @@
         </div>
         
         <div class="action-buttons">
-            <a href="{{ route('coaches.index') }}" class="btn btn-back">
+            <a href="{{ route('admin.coaches.index') }}" class="btn btn-back">
                 <span>⬅️</span> Back to List
             </a>
-            <a href="{{ route('coaches.edit', $coach->id) }}" class="btn btn-edit">
+            <a href="{{ route('admin.coaches.edit', $coach->id) }}" class="btn btn-edit">
                 <span>✏️</span> Edit Profile
             </a>
         </div>

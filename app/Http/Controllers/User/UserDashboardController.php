@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
-class DashboardController extends Controller
+class UserDashboardController extends Controller
 {
     /**
      * Show the user dashboard.

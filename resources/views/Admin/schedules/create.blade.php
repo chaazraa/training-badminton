@@ -211,7 +211,7 @@
     <div class="form-container">
         <h1>Tambah Jadwal Baru</h1>
 
-        <form action="{{ route('schedules.store') }}" method="POST">
+        <form action="{{ route('admin.schedules.store') }}" method="POST">
             @csrf
             <label for="tanggal">Tanggal</label>
             <input type="date" name="tanggal" id="tanggal" required>
@@ -251,7 +251,7 @@
             </button>
         </form>
 
-        <a href="{{ route('schedules.index') }}">
+        <a href="{{ route('admin.schedules.index') }}">
             <span></span> Kembali ke Daftar Jadwal
         </a>
     </div>

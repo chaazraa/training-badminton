@@ -214,7 +214,7 @@
 
         <!-- Add Coach Button -->
         <div style="text-align: center;">
-            <a href="{{ route('coaches.create') }}" class="add-button">➕ Tambah Pelatih Baru</a>
+            <a href="{{ route('admin.coaches.create') }}" class="add-button">➕ Tambah Pelatih Baru</a>
         </div>
 
         <div class="coaches-grid">
@@ -252,13 +252,13 @@
                     </div>
                     
                     <div class="action-links">
-                        <a href="{{ route('coaches.show', $coach->id) }}" class="action-button view-button">
+                        <a href="{{ route('admin.coaches.show', $coach->id) }}" class="action-button view-button">
                             <span>🔍</span> Detail
                         </a>
-                        <a href="{{ route('coaches.edit', $coach->id) }}" class="action-button edit-button">
+                        <a href="{{ route('admin.coaches.edit', $coach->id) }}" class="action-button edit-button">
                             <span>✏️</span> Edit
                         </a>
-                        <form action="{{ route('coaches.destroy', $coach->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.coaches.destroy', $coach->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" 

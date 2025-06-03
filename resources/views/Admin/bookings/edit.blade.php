@@ -126,7 +126,7 @@
     <div class="container">
         <h2>✏️ Edit Booking</h2>
 
-        <form method="POST" action="{{ route('bookings.update', $booking->id) }}" class="edit-form">
+        <form method="POST" action="{{ route('admin.bookings.update', $booking->id) }}" class="edit-form">
             @csrf
             @method('PUT')
 
@@ -164,7 +164,7 @@
             </button>
         </form>
 
-        <a href="{{ route('bookings.index') }}" class="back-link">
+        <a href="{{ route('admin.bookings.index') }}" class="back-link">
             <span>🔙</span> Back to Booking List
         </a>
     </div>
