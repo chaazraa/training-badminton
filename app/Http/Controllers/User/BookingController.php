@@ -7,7 +7,10 @@ use App\Models\Booking;
 use App\Models\Coach;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
-use Carbon\Carbon; // Pastikan Carbon sudah di-import
+use Carbon\Carbon;
+use Midtrans\Config;
+use Midtrans\Snap;
+use GuzzleHttp\Client;
 
 class BookingController extends Controller
 {
@@ -58,7 +61,84 @@ class BookingController extends Controller
             'schedule_id' => $request->schedule_id,
         ]);
 
-        return redirect()->route('user.bookings.index')->with('success', 'Booking berhasil dibuat.');
+        return redirect()->route('user.bookings.payment')->with('success', 'Booking berhasil dibuat.');
+    }
+
+    public function payment()
+    {
+        // Ambil booking terakhir yang dibuat oleh user yang sedang login
+        $booking = Booking::where('user_id', auth()->id())->latest()->first();
+
+        if (!$booking) {
+            return redirect()->route('user.bookings.index')->with('error', 'Tidak ada booking yang ditemukan.');
+        }
+
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+        
+        // Nonaktifkan verifikasi SSL di development
+        
+
+        // Hanya buat Snap Token jika belum ada
+        if (!$booking->snap_token) {
+            $amount = $booking->schedule->harga ?? 50000;
+            
+            // Pastikan amount valid dan lebih besar dari 0
+            if ($amount <= 0) {
+                return view('user.bookings.payment', [
+                    'booking' => $booking,
+                    'error' => 'Harga tidak valid. Silahkan hubungi admin.',
+                ]);
+            }
+
+            $transaction = [
+                'transaction_details' => [
+                    'order_id' => 'BOOKING-' . $booking->id . '-' . time(),
+                    'gross_amount' => (int)$amount, // Konversi ke integer untuk memastikan format yang benar
+                ],
+                'customer_details' => [
+                    'first_name' => auth()->user()->name,
+                    'email' => auth()->user()->email,
+                ],
+                'item_details' => [
+                    [
+                        'id' => 'TRAINING-' . $booking->id,
+                        'price' => (int)$amount,
+                        'quantity' => 1,
+                        'name' => 'Training Session with ' . $booking->coach->name,
+                    ]
+                ]
+            ];
+
+            // Ambil snap token dari Midtrans
+            // Ambil snap token dari Midtrans Snap API
+        $client = new Client();
+        $response = $client->post('https://app.sandbox.midtrans.com/snap/v1/transactions', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode(config('midtrans.server_key') . ':'),
+            ],
+            'json' => $transaction,
+            'verify' => false, // jika SSL error di lokal
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        $snapToken = $body['token'] ?? null;
+
+        // Simpan snap_token ke database jika berhasil
+        if ($snapToken) {
+            $booking->snap_token = $snapToken;
+            $booking->save();
+        }
+    }
+
+        return view('user.bookings.payment', [
+            'booking' => $booking
+        ]);
     }
 
     // Menampilkan detail booking

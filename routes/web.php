@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+     Route::get('/coaches', [UserCoachController::class, 'index'])->name('coaches.index');
 });
 
 // =======================
@@ -52,6 +53,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':user'])->prefix('user')->na
     Route::get('/coaches', [UserCoachController::class, 'index'])->name('coaches.index');
     Route::get('/coaches/{coach}', [UserCoachController::class, 'show'])->name('coaches.show');
 });
+
+    Route::get('bookings.payment', [UserBookingController::class, 'payment'])->name('user.bookings.payment');
 
 
 // =======================
