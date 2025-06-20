@@ -113,7 +113,6 @@ class BookingController extends Controller
                 ]
             ];
 
-            // Ambil snap token dari Midtrans
             // Ambil snap token dari Midtrans Snap API
         $client = new Client();
         $response = $client->post('https://app.sandbox.midtrans.com/snap/v1/transactions', [
