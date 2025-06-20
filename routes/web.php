@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\CheckExpiredPayments;
+use App\Http\Controllers\ScheduleController;
 
 // User Controllers
 use App\Http\Controllers\User\UserDashboardController as UserDashboardController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 
 // 🔹 Landing Page
-Route::get('/', fn() => view('landing'));
+Route::get('/home', fn() => view('landing'));
 
 // 🔹 Redirect Dashboard
 Route::get('/dashboard', function () {
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(fu
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::resource('schedules', ScheduleController::class);
+Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
 
 // 🔹 Profile
 Route::middleware('auth')->group(function () {

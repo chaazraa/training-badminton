@@ -10,7 +10,13 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'coach_id', 'schedule_id', 'snap_token'];
+    protected $fillable = [
+        'user_id', 
+        'coach_id', 
+        'schedule_id', 
+        'snap_token',
+        'payment_status',
+    ];
 
     public function user()
     {

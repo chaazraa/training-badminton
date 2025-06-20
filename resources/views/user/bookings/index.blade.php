@@ -97,11 +97,33 @@
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 5px;
-        }
-        .info-value {
+        }        .info-value {
             color: #1d3557;
             font-size: 16px;
             font-weight: 500;
+        }
+        .payment-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .payment-status.pending {
+            background-color: #ffd166;
+            color: #805e00;
+        }
+        .payment-status.paid {
+            background-color: #95d5b2;
+            color: #1b4332;
+        }
+        .payment-status.cancelled {
+            background-color: #ef476f;
+            color: white;
+        }
+        .payment-status.failed {
+            background-color: #e63946;
+            color: white;
         }
         .action-links {
             display: flex;
@@ -180,10 +202,17 @@
                         <div class="info-item">
                             <span class="info-label">🏋️ Coach</span>
                             <span class="info-value">{{ optional($booking->coach)->name ?? 'Pelatih belum ditentukan' }}</span>
-                        </div>
-                        <div class="info-item">
+                        </div>                        <div class="info-item">
                             <span class="info-label">📅 Schedule</span>
                             <span class="info-value">{{ optional($booking->schedule)->tanggal ?? 'Jadwal belum ditentukan' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">💰 Payment Status</span>
+                            <span class="info-value">
+                                <span class="payment-status {{ $booking->payment_status }}">
+                                    {{ ucfirst($booking->payment_status ?? 'pending') }}
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="action-links">
