@@ -18,6 +18,7 @@
     "env": {
         "PHP_INI_SCAN_DIR": "api",
         "APP_ENV": "production",
+        "APP_KEY": "base64:aWlRWU0jr07T7ycqFBIsaoIbX1iuduImlu+X9qp5ggY=",
         "APP_DEBUG": "true",
         "APP_URL": "https://www.badminton.my.id/",
         "ASSET_URL": "https://www.badminton.my.id/",
