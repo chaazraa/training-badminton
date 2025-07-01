@@ -21,7 +21,7 @@
                             <span class="mx-2">🏸</span>
                             Dashboard
                         </a>
-                        <a href="{{ route('user.schedules.index') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-orange-50 {{ request()->routeIs('user.schedules.*') ? 'bg-orange-50 text-gray-700' : '' }}">
+                        <a href="{{ route('user.haloschedules.index') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-orange-50 {{ request()->routeIs('user.schedules.*') ? 'bg-orange-50 text-gray-700' : '' }}">
                             <span class="mx-2">📅</span>
                             Schedule
                         </a>
