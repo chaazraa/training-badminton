@@ -7,22 +7,8 @@
     },
     "routes": [
         {
-            "src": "/build/(.*)",
-            "dest": "/build/$1",
-            "headers": {
-                "cache-control": "public, max-age=31536000, immutable"
-            }
-        },
-        {
             "src": "/storage/(.*)",
-            "dest": "/storage/app/public/$1"
-        },
-        {
-            "src": "/(css|js|images|fonts)/(.*)",
-            "dest": "/$1/$2",
-            "headers": {
-                "cache-control": "public, max-age=31536000"
-            }
+            "dest": "/public/storage/$1"
         },
         {
             "src": "/(.*)",
